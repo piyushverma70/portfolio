@@ -5,6 +5,9 @@
   "engines": {
     "node": "24.x"
   },
+  "scripts": {
+    "build": "echo build complete"
+  },
   "dependencies": {
     "nodemailer": "^6.9.3"
   }
