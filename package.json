@@ -1,13 +1,7 @@
 {
-  "name": "portfolio-website",
+  "name": "portfolio",
   "version": "1.0.0",
   "private": true,
-  "engines": {
-    "node": "24.x"
-  },
-  "scripts": {
-    "build": "echo build complete"
-  },
   "dependencies": {
     "nodemailer": "^6.9.3"
   }
