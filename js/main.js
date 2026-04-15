@@ -198,6 +198,42 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('contact-form');
   if (form) {
     const errorEl = document.getElementById('form-error');
+
+    const extractErrorMessage = async (res, fallback) => {
+      // Try to parse JSON, then text. Normalize common fields.
+      if (!res) return fallback;
+      try {
+        const txt = await res.text();
+        // Try JSON parse first
+        try {
+          const data = JSON.parse(txt || '{}');
+          // common locations
+          if (!data) return fallback;
+          if (typeof data === 'string') return data || fallback;
+          if (data.error) return data.error;
+          if (data.message) return data.message;
+          if (data.msg) return data.msg;
+          if (data.detail) return data.detail;
+          if (data.errors) {
+            if (Array.isArray(data.errors)) {
+              return data.errors.map(e => (typeof e === 'string' ? e : (e.message || e.msg || JSON.stringify(e)))).join('; ');
+            }
+            if (typeof data.errors === 'object') {
+              const vals = Object.values(data.errors).flat().map(v => (typeof v === 'string' ? v : (v.message || JSON.stringify(v))));
+              return vals.join('; ') || fallback;
+            }
+          }
+          // fallback to stringified object if nothing else found
+          return Object.keys(data).length ? JSON.stringify(data) : fallback;
+        } catch (e) {
+          // not JSON, use raw text
+          return txt && txt.trim() ? txt.trim() : fallback;
+        }
+      } catch (e) {
+        return fallback;
+      }
+    };
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = form.querySelector('.form-submit');
@@ -245,14 +281,16 @@ document.addEventListener('DOMContentLoaded', () => {
           const success = document.querySelector('.form-success');
           if (success) success.classList.add('show');
         } else {
-          const data = (res && res.json) ? await res.json().catch(() => ({})) : {};
-          const msg = data && data.error ? data.error : 'Submission failed — please try again.';
+          const fallback = 'Submission failed — please try again.';
+          const msg = await extractErrorMessage(res, fallback);
           if (errorEl) { errorEl.style.display = 'block'; errorEl.textContent = msg; }
           btn.disabled = false;
           btn.innerHTML = originalBtnHtml;
         }
       } catch (err) {
-        if (errorEl) { errorEl.style.display = 'block'; errorEl.textContent = 'Network error — please try again.'; }
+        console.error('Contact form submission error:', err);
+        const netMsg = err && err.message ? `Network error — ${err.message}` : 'Network error — please try again.';
+        if (errorEl) { errorEl.style.display = 'block'; errorEl.textContent = netMsg; }
         btn.disabled = false;
         btn.innerHTML = originalBtnHtml;
       }
