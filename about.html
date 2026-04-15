@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Piyush Verma</title>
+  <meta name="description"
+    content="Learn about Piyush Verma — a web developer passionate about building clean, beautiful websites." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23111827%22 rx=%2220%22/><text x=%2250%22 y=%2250%22 fill=%22white%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2260%22 font-family=%22sans-serif%22 font-weight=%22bold%22>P</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    /* Additional about page styles */
+    .about-page-hero {
+      padding: 140px 0 80px;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 30%, rgba(67, 97, 238, 0.07) 0%, transparent 65%);
+    }
+
+    .about-full {
+      background: var(--surface);
+    }
+
+    .about-full-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .about-sticky {
+      position: sticky;
+      top: 100px;
+    }
+
+    .about-photo-box {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(160deg, #0D1B2A, #1B2A3B);
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8rem;
+      border: 2px solid rgba(255, 255, 255, 0.06);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(17, 24, 39, 0.3), 0 8px 24px rgba(67, 97, 238, 0.08);
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .about-photo-box:hover {
+      transform: rotateY(-5deg) rotateX(3deg) scale(1.02);
+      border-color: rgba(244, 162, 37, 0.4);
+      box-shadow: 0 30px 80px rgba(244, 162, 37, 0.15), 0 10px 30px rgba(17, 24, 39, 0.3), 0 0 0 3px rgba(244, 162, 37, 0.15), inset 0 0 60px rgba(244, 162, 37, 0.03);
+    }
+
+    .photo-deco1 {
+      position: absolute;
+      bottom: -40px;
+      right: -40px;
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(135deg, rgba(244, 162, 37, 0.4), rgba(67, 97, 238, 0.3));
+      border-radius: 50%;
+      opacity: 0.12;
+      filter: blur(40px);
+      transition: opacity 0.5s ease;
+    }
+
+    .about-photo-box:hover .photo-deco1 {
+      opacity: 0.3;
+    }
+
+    .photo-deco2 {
+      position: absolute;
+      top: -40px;
+      left: -40px;
+      width: 150px;
+      height: 150px;
+      background: linear-gradient(135deg, rgba(244, 162, 37, 0.3), transparent);
+      border-radius: 50%;
+      filter: blur(30px);
+      transition: opacity 0.5s ease;
+    }
+
+    .about-photo-box:hover .photo-deco2 {
+      opacity: 0.4;
+    }
+
+    .about-side-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+
+    .about-stat-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1rem;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .about-stat-box::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(244, 162, 37, 0.04), rgba(67, 97, 238, 0.04));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .about-stat-box:hover::after {
+      opacity: 1;
+    }
+
+    .about-stat-box:hover {
+      border-color: rgba(244, 162, 37, 0.3);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06), 0 0 0 2px rgba(244, 162, 37, 0.08);
+    }
+
+    .asb-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: var(--accent-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      transition: transform 0.4s ease;
+    }
+
+    .about-stat-box:hover .asb-num {
+      transform: scale(1.15);
+    }
+
+    .asb-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .about-content h2 {
+      margin-bottom: 1.2rem;
+    }
+
+    .about-content p {
+      color: var(--text-muted);
+      line-height: 1.9;
+      margin-bottom: 1.4rem;
+    }
+
+    .about-values {
+      background: var(--navy);
+      padding: 100px 0;
+    }
+
+    .about-values .section-title {
+      color: #fff;
+      -webkit-text-fill-color: #fff;
+    }
+
+    .about-values .section-tag {
+      color: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .value-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .value-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 2px;
+      background: linear-gradient(135deg, rgba(244, 162, 37, 0.5), rgba(67, 97, 238, 0.5));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    .value-card:hover::before {
+      opacity: 1;
+    }
+
+    .value-card:hover {
+      background: rgba(244, 162, 37, 0.08);
+      border-color: transparent;
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 40px rgba(244, 162, 37, 0.06);
+    }
+
+    .value-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .value-card:hover .value-icon {
+      transform: scale(1.2) translateY(-4px);
+      filter: drop-shadow(0 4px 12px rgba(244, 162, 37, 0.4));
+    }
+
+    .value-card h3 {
+      color: #fff;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .value-card:hover h3 {
+      color: #FFD700;
+    }
+
+    .value-card p {
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 0.85rem;
+      transition: color 0.3s ease;
+    }
+
+    .value-card:hover p {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .currently-section {
+      background: var(--bg);
+    }
+
+    .currently-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .currently-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .currently-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--gold), var(--accent));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .currently-card:hover::before {
+      opacity: 1;
+    }
+
+    .currently-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(244, 162, 37, 0.2);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06), 0 0 0 2px rgba(244, 162, 37, 0.06);
+    }
+
+    .cc-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .currently-card:hover .cc-label {
+      color: var(--gold);
+    }
+
+    .cc-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .cc-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .fun-facts {
+      background: var(--surface);
+    }
+
+    .fun-facts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .fun-fact {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.8rem;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .fun-fact::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(244, 162, 37, 0.04), rgba(67, 97, 238, 0.04));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .fun-fact:hover::after {
+      opacity: 1;
+    }
+
+    .fun-fact:hover {
+      border-color: rgba(244, 162, 37, 0.25);
+      transform: translateY(-6px) rotate(-1deg);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06), 0 0 0 2px rgba(244, 162, 37, 0.08), 0 0 30px rgba(244, 162, 37, 0.04);
+    }
+
+    .ff-emoji {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 0.8rem;
+      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .fun-fact:hover .ff-emoji {
+      transform: scale(1.25) rotate(5deg);
+      filter: drop-shadow(0 4px 12px rgba(244, 162, 37, 0.3));
+    }
+
+    .ff-text {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    @media (max-width:900px) {
+      .about-full-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .about-sticky {
+        position: static;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="page-transition"></div>
+
+  <!-- NAV -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-logo">PV</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact Me</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="about-page-hero">
+    <div class="container">
+      <span class="section-tag reveal">The Person Behind the Code</span>
+      <h1 class="section-title reveal" style="transition-delay:0.1s;">About Me</h1>
+      <p class="section-desc reveal" style="transition-delay:0.2s;margin:0 auto;">
+        A junior web developer on a mission — to build beautiful websites and keep growing every day.
+      </p>
+    </div>
+  </section>
+
+  <!-- MAIN ABOUT -->
+  <section class="about-full" id="about-main">
+    <div class="container">
+      <div class="about-full-inner">
+        <!-- Left sticky column -->
+        <div class="about-sticky">
+          <div class="about-photo-box reveal-left">
+            <div>👨‍💻</div>
+            <div class="photo-deco1"></div>
+            <div class="photo-deco2"></div>
+          </div>
+          <div class="about-side-stats reveal-left" style="transition-delay:0.1s;">
+            <div class="about-stat-box">
+              <div class="asb-num">1+</div>
+              <div class="asb-label">Project</div>
+            </div>
+            <div class="about-stat-box">
+              <div class="asb-num">5★</div>
+              <div class="asb-label">Rating</div>
+            </div>
+            <div class="about-stat-box">
+              <div class="asb-num">3+</div>
+              <div class="asb-label">Skills</div>
+            </div>
+            <div class="about-stat-box">
+              <div class="asb-num">∞</div>
+              <div class="asb-label">Growth</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right content -->
+        <div class="about-content">
+          <span class="section-tag reveal">My Story</span>
+          <h2 class="section-title reveal" style="transition-delay:0.05s;">Hi, I'm Piyush Verma 👋</h2>
+
+          <p class="reveal" style="transition-delay:0.1s;">
+            I'm a passionate web developer based in India, currently building my skills and reputation
+            in the world of web development. My journey started with a curiosity about how websites
+            work — and that curiosity turned into a commitment to mastering the craft.
+          </p>
+
+          <p class="reveal" style="transition-delay:0.15s;">
+            I specialize in building <strong>clean, fast, and visually stunning static websites</strong>.
+            My background in computers and a natural eye for design help me create digital experiences
+            that not only work well — but look incredible too.
+          </p>
+
+          <p class="reveal" style="transition-delay:0.2s;">
+            My first completed client project — a premium website for <em>Kashish Masale</em> —
+            earned a perfect <strong>5-star rating</strong>. That success fueled my drive to take on
+            more projects, grow my skills, and eventually become a full-stack web developer.
+          </p>
+
+          <p class="reveal" style="transition-delay:0.25s;">
+            I'm currently expanding into <strong>dynamic web development</strong> — learning JavaScript
+            more deeply and exploring modern frameworks. Every day is a step toward mastery.
+          </p>
+
+          <div class="reveal" style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;transition-delay:0.3s;">
+            <a href="projects.html" class="btn btn-primary" id="about-view-work">View My Work →</a>
+            <a href="contact.html" class="btn btn-outline" id="about-hire">Hire Me</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="about-values" id="values">
+    <div class="container">
+      <div style="text-align:center;" class="reveal">
+        <span class="section-tag">What Drives Me</span>
+        <h2 class="section-title">My Values</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card reveal"><span class="value-icon">🎯</span>
+          <h3>Quality First</h3>
+          <p>I never cut corners. Every project gets my full attention, ensuring the result is something I'm proud to
+            put my name on.</p>
+        </div>
+        <div class="value-card reveal"><span class="value-icon">📚</span>
+          <h3>Always Learning</h3>
+          <p>Technology evolves fast. I stay curious, keep learning, and constantly improve my craft to stay ahead.</p>
+        </div>
+        <div class="value-card reveal"><span class="value-icon">🤝</span>
+          <h3>Client Partnership</h3>
+          <p>Clients aren't just customers — they're partners. I listen, understand their vision, and bring it to life
+            faithfully.</p>
+        </div>
+        <div class="value-card reveal"><span class="value-icon">✨</span>
+          <h3>Pride in Craft</h3>
+          <p>Web development is an art form. I approach every line of code and every design decision with creative
+            intention.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRENTLY -->
+  <section class="currently-section" id="currently">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:3rem;" class="reveal">
+        <span class="section-tag">Right Now</span>
+        <h2 class="section-title">What I'm Up To</h2>
+      </div>
+      <div class="currently-grid">
+        <div class="currently-card reveal">
+          <span class="cc-label">🔨 Building</span>
+          <div class="cc-title">My Portfolio Website</div>
+          <p class="cc-desc">This very site you're viewing — crafted with pure HTML, CSS & JS with 3D animations and a
+            sky intro.</p>
+        </div>
+        <div class="currently-card reveal" >
+          <span class="cc-label">📖 Learning</span>
+          <div class="cc-title">Advanced JavaScript</div>
+          <p class="cc-desc">Going deep into JS — async programming, APIs, DOM mastery, and exploring Node.js basics.
+          </p>
+        </div>
+        <div class="currently-card reveal">
+          <span class="cc-label">🎯 Exploring</span>
+          <div class="cc-title">Dynamic Web Dev</div>
+          <p class="cc-desc">Stepping beyond static sites to understand how dynamic, database-driven websites work.</p>
+        </div>
+        <div class="currently-card reveal">
+          <span class="cc-label">🚀 Planning</span>
+          <div class="cc-title">Next Client Project</div>
+          <p class="cc-desc">In discussion with a new client for a business website. Excited to keep growing my
+            portfolio!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUN FACTS -->
+  <section class="fun-facts" id="fun-facts">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:3rem;" class="reveal">
+        <span class="section-tag">Did You Know?</span>
+        <h2 class="section-title">Fun Facts About Me</h2>
+      </div>
+      <div class="fun-facts-grid">
+        <div class="fun-fact reveal"><span class="ff-emoji">☕</span>
+          <p class="ff-text">Best code is written with a hot cup of chai beside me.</p>
+        </div>
+        <div class="fun-fact reveal"><span class="ff-emoji">🌙</span>
+          <p class="ff-text">Night owl — my most creative ideas come after midnight.</p>
+        </div>
+        <div class="fun-fact reveal"><span class="ff-emoji">🎨</span>
+          <p class="ff-text">Design-first mindset: I sketch before I code.</p>
+        </div>
+        <div class="fun-fact reveal"><span class="ff-emoji">📱</span>
+          <p class="ff-text">I test every website on mobile before calling it done.</p>
+        </div>
+        <div class="fun-fact reveal"><span class="ff-emoji">🌶️</span>
+          <p class="ff-text">First client was a spice business — and I love spicy food!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Piyush Verma</div>
+      <p class="footer-tagline">Web Developer · Building the Web, One Site at a Time</p>
+      <div class="footer-social">
+        <a href="mailto:piyushverma198601986@gmail.com" title="Email">✉️</a>
+        <a href="https://github.com/piyushverma70" title="GitHub">💻</a>
+        <a href="https://www.linkedin.com/in/piyush-verma822828" title="LinkedIn">🔗</a>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="skills.html">Skills</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-divider"></div>
+      <p class="footer-copy">© 2026 Piyush Verma. Designed & Developed with ❤️</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Piyush Verma</title>
+  <meta name="description"
+    content="Get in touch with Piyush Verma for web development projects, collaborations, or freelance work." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23111827%22 rx=%2220%22/><text x=%2250%22 y=%2250%22 fill=%22white%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2260%22 font-family=%22sans-serif%22 font-weight=%22bold%22>P</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/contact.css" />
+</head>
+
+<body>
+
+  <div class="page-transition"></div>
+
+  <!-- NAV -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-logo">PV</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact Me</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="contact-hero">
+    <div class="container">
+      <span class="section-tag reveal">Let's Talk</span>
+      <h1 class="section-title reveal" style="transition-delay:0.1s;">Get In Touch</h1>
+      <p class="reveal" style="transition-delay:0.2s;">
+        Have a project in mind? Want to collaborate? Or just want to say hi?
+        I'd love to hear from you!
+      </p>
+    </div>
+  </section>
+
+  <!-- MAIN CONTACT -->
+  <section class="contact-main" id="contact-form-section">
+    <div class="container">
+      <div class="contact-layout">
+
+        <!-- Info Card -->
+        <div class="contact-info-card reveal-left">
+          <h2 class="ci-greeting">👋 Let's connect!</h2>
+          <p class="ci-desc">
+            I'm currently available for freelance web development projects.
+            Whether you need a business website, portfolio, or something creative —
+            let's make it happen together.
+          </p>
+
+          <div class="contact-links">
+            <a href="mailto:piyushverma198601986@gmail.com" class="contact-link-item" id="contact-email-link" aria-label="Email">
+              <div class="cl-icon">✉️</div>
+              <div class="cl-info">
+                <div class="cl-label">Email</div>
+                <div class="cl-value">piyushverma198601986@gmail.com</div>
+              </div>
+            </a>
+            <div class="contact-link-item">
+              <div class="cl-icon">📍</div>
+              <div class="cl-info">
+                <div class="cl-label">Location</div>
+                <div class="cl-value">India 🇮🇳</div>
+              </div>
+            </div>
+            <a href="https://github.com/piyushverma70" class="contact-link-item" id="contact-github-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <div class="cl-icon">💻</div>
+              <div class="cl-info">
+                <div class="cl-label">GitHub</div>
+                <div class="cl-value">github.com/piyushverma</div>
+              </div>
+            </a>
+            <a href="https://www.linkedin.com/in/piyush-verma822828" class="contact-link-item" id="contact-linkedin-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <div class="cl-icon">🔗</div>
+              <div class="cl-info">
+                <div class="cl-label">LinkedIn</div>
+                <div class="cl-value">linkedin.com/in/piyushverma</div>
+              </div>
+            </a>
+          </div>
+
+          <div class="availability-badge">
+            <div class="avail-dot"></div>
+            Available for new projects right now!
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="contact-form-wrap reveal-right">
+          <h3>Send me a message</h3>
+          <p class="form-sub">Fill out the form below and I'll get back to you within 24 hours.</p>
+
+          <form class="contact-form" id="contact-form" novalidate data-endpoint="/api/contact">
+            <!-- Replace data-endpoint with your Formspree endpoint (e.g. https://formspree.io/f/abcdefg) -->
+            <input type="hidden" name="_subject" value="New message from portfolio site" />
+            <div id="form-error" class="form-error" role="alert" aria-live="polite" style="display:none;color:#ef4444;margin-bottom:1rem;"></div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="input-name">Your Name *</label>
+                <input type="text" id="input-name" name="name" class="form-input" placeholder="John Doe" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="input-email">Email Address *</label>
+                <input type="email" id="input-email" name="email" class="form-input" placeholder="john@example.com" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="input-subject">Subject</label>
+              <input type="text" id="input-subject" name="subject" class="form-input" placeholder="What's this about?" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="input-project">Project Type</label>
+              <select id="input-project" name="project" class="form-select">
+                <option value="">Select project type...</option>
+                <option value="business">Business Website</option>
+                <option value="portfolio">Portfolio Website</option>
+                <option value="ecommerce">E-Commerce / Catalog</option>
+                <option value="landing">Landing Page</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="input-message">Message *</label>
+              <textarea id="input-message" name="message" class="form-textarea"
+                placeholder="Tell me about your project, timeline, budget ideas..." required></textarea>
+            </div>
+
+            <button type="submit" class="form-submit" id="form-submit-btn">
+              Send Message <span class="btn-icon">→</span>
+            </button>
+          </form>
+
+          <!-- Success State -->
+          <div class="form-success" id="form-success">
+            <div class="success-icon">🎉</div>
+            <h3>Message Received!</h3>
+            <p>Thank you for reaching out! I'll get back to you within 24 hours.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXTRA INFO -->
+  <section class="contact-extra" id="contact-extra">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:3rem;" class="reveal">
+        <span class="section-tag">Quick Info</span>
+        <h2 class="section-title">What to Expect</h2>
+      </div>
+      <div class="contact-extra-grid">
+        <div class="extra-card reveal">
+          <span class="extra-icon">⚡</span>
+          <h3>Fast Response</h3>
+          <p>I typically reply within 24 hours — often much faster!</p>
+        </div>
+        <div class="extra-card reveal">
+          <span class="extra-icon">💬</span>
+          <h3>Clear Communication</h3>
+          <p>Regular updates throughout your project. No surprises.</p>
+        </div>
+        <div class="extra-card reveal">
+          <span class="extra-icon">🎯</span>
+          <h3>Project-Focused</h3>
+          <p>Detailed consultation before starting — I understand your vision fully.</p>
+        </div>
+        <div class="extra-card reveal">
+          <span class="extra-icon">🤝</span>
+          <h3>Satisfaction Guaranteed</h3>
+          <p>Revisions included. Your satisfaction is my top priority.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+      <div class="footer-inner">
+      <div class="footer-logo">Piyush Verma</div>
+      <p class="footer-tagline">Web Developer · Building the Web, One Site at a Time</p>
+      <div class="footer-social">
+        <a href="mailto:piyushverma198601986@gmail.com" title="Email">✉️</a>
+        <a href="https://github.com/piyushverma70" title="GitHub">💻</a>
+        <a href="https://www.linkedin.com/in/piyush-verma822828" title="LinkedIn">🔗</a>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="skills.html">Skills</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-divider"></div>
+      <p class="footer-copy">© 2026 Piyush Verma. Designed & Developed with ❤️</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

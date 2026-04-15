@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Piyush Verma — Web Developer</title>
+  <meta name="description"
+    content="Portfolio of Piyush Verma, a web developer specializing in clean, responsive static websites. Based in India." />
+  <meta name="keywords" content="Piyush Verma, Web Developer, HTML, CSS, JavaScript, Portfolio, Static Websites" />
+  <meta property="og:title" content="Piyush Verma — Web Developer" />
+  <meta property="og:description" content="Building beautiful, pixel-perfect websites." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23111827%22 rx=%2220%22/><text x=%2250%22 y=%2250%22 fill=%22white%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2260%22 font-family=%22sans-serif%22 font-weight=%22bold%22>P</text></svg>" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/home.css" />
+</head>
+
+<body>
+
+  <!-- Page Transition Curtain -->
+  <div class="page-transition"></div>
+
+  <!-- ====== INTRO SCREEN ====== -->
+  <div id="intro-screen">
+    <div class="intro-sky"></div>
+    <div class="intro-particles"></div>
+
+    <div class="intro-content">
+      <p class="intro-greeting">Welcome to my portfolio</p>
+      <h1 class="intro-name">Piyush <span class="name-accent">Verma</span></h1>
+      <p class="intro-role">Web Developer &nbsp;·&nbsp; Creating Digital Experiences</p>
+      <div class="intro-divider">
+        <span class="intro-dot"></span>
+        <span class="intro-dot"></span>
+        <span class="intro-dot"></span>
+      </div>
+    </div>
+
+    <div class="intro-scroll-hint">
+      <span>Click anywhere to skip</span>
+      <div class="scroll-arrow"></div>
+    </div>
+
+    <div class="intro-progress"></div>
+  </div>
+
+  <!-- ====== NAVBAR ====== -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-logo">PV</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html" id="nav-home">Home</a></li>
+      <li><a href="skills.html" id="nav-skills">Skills</a></li>
+      <li><a href="projects.html" id="nav-projects">Projects</a></li>
+      <li><a href="about.html" id="nav-about">About</a></li>
+      <li><a href="contact.html" class="nav-cta" id="nav-contact">Contact Me</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ====== HERO SECTION ====== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid-overlay"></div>
+
+    <div class="hero-inner">
+      <!-- Left: Text -->
+      <div class="hero-text">
+        <div class="hero-badge reveal">
+          <span class="dot"></span>
+          Available for freelance work
+        </div>
+
+        <h1 class="hero-title reveal" style="transition-delay:0.2s;">
+          Hi, I'm<br />
+          <span class="highlight">Piyush Verma</span>
+        </h1>
+
+        <p class="hero-desc reveal" style="transition-delay:0.3s;">
+          A passionate <strong>Web Developer</strong> crafting clean, fast, and visually stunning websites.
+          I turn ideas into beautiful digital realities — pixel by pixel.
+        </p>
+
+        <div class="hero-actions reveal" style="transition-delay:0.4s;">
+          <a href="projects.html" class="btn btn-primary" id="hero-view-work">
+            View My Work <span>→</span>
+          </a>
+          <a href="contact.html" class="btn btn-outline" id="hero-hire-me">
+            Hire Me
+          </a>
+        </div>
+
+        <div class="hero-stats reveal" style="transition-delay:0.5s;">
+          <div class="stat-item">
+            <div class="stat-number" data-count="1" data-suffix="+">0+</div>
+            <div class="stat-label">Project Completed</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-count="5.0" data-suffix="★">0.0★</div>
+            <div class="stat-label">Client Rating</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-count="100" data-suffix="%">0%</div>
+            <div class="stat-label">Client Satisfaction</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: 3D Profile Card -->
+      <div class="hero-visual">
+        <div class="hero-3d-card">
+          <div class="card-face">
+            <div class="card-face-inner">
+              <div class="card-face-bg"></div>
+              <div class="card-avatar">
+                <div class="card-avatar-placeholder">👨‍💻</div>
+              </div>
+              <div class="card-info">
+                <div class="card-name">Piyush Verma</div>
+                <div class="card-role-tag">Web Developer</div>
+                <div class="card-skills-preview">
+                  <span class="card-skill-chip">HTML5</span>
+                  <span class="card-skill-chip">CSS3</span>
+                  <span class="card-skill-chip">JavaScript</span>
+                  <span class="card-skill-chip">Responsive</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating Badges -->
+          <div class="float-badge badge-1">
+            <span class="badge-icon">⭐</span>
+            <div>
+              <div style="font-size:0.68rem;color:var(--text-muted);">Client Review</div>
+              <div>5.0 Rating</div>
+            </div>
+          </div>
+          <div class="float-badge badge-2">
+            <span class="badge-icon">🎨</span>
+            <div>
+              <div style="font-size:0.68rem;color:var(--text-muted);">Skills</div>
+              <div>Web Developer</div>
+            </div>
+          </div>
+          <div class="float-badge badge-3">
+            <span class="badge-icon">✅</span>
+            <div>
+              <div style="font-size:0.68rem;color:var(--text-muted);">Status</div>
+              <div>Available</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== SCROLLING SKILLS STRIP ====== -->
+  <div class="skills-strip">
+    <div class="skills-strip-track" id="strip-track">
+      <div class="strip-item"><span class="strip-icon">🌐</span> HTML5</div>
+      <div class="strip-item"><span class="strip-icon">🎨</span> CSS3</div>
+      <div class="strip-item"><span class="strip-icon">⚡</span> JavaScript</div>
+      <div class="strip-item"><span class="strip-icon">📱</span> Responsive Design</div>
+      <div class="strip-item"><span class="strip-icon">🖥️</span> Static Websites</div>
+      <div class="strip-item"><span class="strip-icon">🔍</span> SEO Basics</div>
+      <div class="strip-item"><span class="strip-icon">💡</span> UI/UX Thinking</div>
+      <div class="strip-item"><span class="strip-icon">🛠️</span> VS Code</div>
+      <div class="strip-item"><span class="strip-icon">📂</span> Git & GitHub</div>
+      <div class="strip-item"><span class="strip-icon">🌐</span> Web Performance</div>
+      <!-- Duplicate for loop -->
+      <div class="strip-item"><span class="strip-icon">🌐</span> HTML5</div>
+      <div class="strip-item"><span class="strip-icon">🎨</span> CSS3</div>
+      <div class="strip-item"><span class="strip-icon">⚡</span> JavaScript</div>
+      <div class="strip-item"><span class="strip-icon">📱</span> Responsive Design</div>
+      <div class="strip-item"><span class="strip-icon">🖥️</span> Static Websites</div>
+      <div class="strip-item"><span class="strip-icon">🔍</span> SEO Basics</div>
+      <div class="strip-item"><span class="strip-icon">💡</span> UI/UX Thinking</div>
+      <div class="strip-item"><span class="strip-icon">🛠️</span> VS Code</div>
+      <div class="strip-item"><span class="strip-icon">📂</span> Git & GitHub</div>
+      <div class="strip-item"><span class="strip-icon">🌐</span> Web Performance</div>
+    </div>
+  </div>
+
+  <!-- ====== ABOUT PREVIEW ====== -->
+  <section class="about-preview" id="about-preview">
+    <div class="container">
+      <div class="about-preview-inner">
+        <div class="about-img-wrap reveal-left">
+          <div class="about-img-box">
+            <div>👨‍💻</div>
+            <div class="about-img-deco"></div>
+            <div class="experience-badge">
+              <div class="exp-num">1+</div>
+              <div class="exp-label">Completed<br />Project</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-text reveal-right">
+          <span class="section-tag">About Me</span>
+          <h2 class="section-title">Building the Websites,<br />One Site at a Time</h2>
+          <p>
+            I'm <strong>Piyush Verma</strong>, a web developer with a passion for creating pixel-perfect,
+            performant websites. I specialize in static websites — clean code, thoughtful design,
+            and smooth user experiences.
+          </p>
+          <p>
+            Currently expanding my skills to master dynamic web development.
+            Every project I take on reflects my dedication to quality and client satisfaction.
+          </p>
+
+          <div class="about-highlights">
+            <div class="highlight-item">
+              <div class="highlight-icon">🎯</div>
+              <div class="highlight-info">
+                <div class="hi-title">Pixel Perfect</div>
+                <div class="hi-sub">Attention to every detail</div>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <div class="highlight-icon">⚡</div>
+              <div class="highlight-info">
+                <div class="hi-title">Fast Loading</div>
+                <div class="hi-sub">Optimized performance</div>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <div class="highlight-icon">📱</div>
+              <div class="highlight-info">
+                <div class="hi-title">Responsive</div>
+                <div class="hi-sub">Works on all devices</div>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <div class="highlight-icon">🤝</div>
+              <div class="highlight-info">
+                <div class="hi-title">Client-Focused</div>
+                <div class="hi-sub">5★ satisfaction</div>
+              </div>
+            </div>
+          </div>
+
+          <a href="about.html" class="btn btn-ghost" id="home-about-btn">
+            Learn More About Me →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====== CTA SECTION ====== -->
+  <section class="cta-section" id="cta">
+    <div class="cta-bg"></div>
+    <div style="position:relative;z-index:1;">
+      <span class="section-tag reveal" style="color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);">Let's Work Together</span>
+      <h2 class="reveal" style="transition-delay:0.1s;">Have a project in mind?</h2>
+      <p class="reveal" style="transition-delay:0.2s;">
+        I'm available for freelance projects. Let's discuss how I can bring your vision to life
+        with clean code and stunning design.
+      </p>
+      <a href="contact.html" id="cta-contact-btn" class="reveal" style="transition-delay:0.3s;">
+        <button class="cta-btn">Get In Touch <span>✉️</span></button>
+      </a>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Piyush Verma</div>
+      <p class="footer-tagline">Web Developer · Building the Web, One Site at a Time</p>
+      <div class="footer-social">
+        <a href="mailto:piyushverma198601986@gmail.com" title="Email" id="footer-email">✉️</a>
+        <a href="https://github.com/piyushverma70" title="GitHub" id="footer-github">💻</a>
+        <a href="https://www.linkedin.com/in/piyush-verma822828" title="LinkedIn" id="footer-linkedin">🔗</a>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="skills.html">Skills</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-divider"></div>
+      <p class="footer-copy">© 2026 Piyush Verma. Designed & Developed with ❤️</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/intro.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
