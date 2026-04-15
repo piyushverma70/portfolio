@@ -197,104 +197,104 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---- Contact Form ----
   const form = document.getElementById('contact-form');
   if (form) {
-    const errorEl = document.getElementById('form-error');
+    // If `data-endpoint` is present, handle submission via Fetch (legacy/server flow).
+    // Otherwise allow native HTML form submission (e.g. Formspree) and do not intercept.
+    const endpointAttr = form.dataset && form.dataset.endpoint ? form.dataset.endpoint.trim() : '';
+    if (!endpointAttr) {
+      // No JS interception needed for native Formspree flow.
+    } else {
+      const errorEl = document.getElementById('form-error');
 
-    const extractErrorMessage = async (res, fallback) => {
-      // Try to parse JSON, then text. Normalize common fields.
-      if (!res) return fallback;
-      try {
-        const txt = await res.text();
-        // Try JSON parse first
+      const extractErrorMessage = async (res, fallback) => {
+        if (!res) return fallback;
         try {
-          const data = JSON.parse(txt || '{}');
-          // common locations
-          if (!data) return fallback;
-          if (typeof data === 'string') return data || fallback;
-          if (data.error) return data.error;
-          if (data.message) return data.message;
-          if (data.msg) return data.msg;
-          if (data.detail) return data.detail;
-          if (data.errors) {
-            if (Array.isArray(data.errors)) {
-              return data.errors.map(e => (typeof e === 'string' ? e : (e.message || e.msg || JSON.stringify(e)))).join('; ');
+          const txt = await res.text();
+          try {
+            const data = JSON.parse(txt || '{}');
+            if (!data) return fallback;
+            if (typeof data === 'string') return data || fallback;
+            if (data.error) return data.error;
+            if (data.message) return data.message;
+            if (data.msg) return data.msg;
+            if (data.detail) return data.detail;
+            if (data.errors) {
+              if (Array.isArray(data.errors)) {
+                return data.errors.map(e => (typeof e === 'string' ? e : (e.message || e.msg || JSON.stringify(e)))).join('; ');
+              }
+              if (typeof data.errors === 'object') {
+                const vals = Object.values(data.errors).flat().map(v => (typeof v === 'string' ? v : (v.message || JSON.stringify(v))));
+                return vals.join('; ') || fallback;
+              }
             }
-            if (typeof data.errors === 'object') {
-              const vals = Object.values(data.errors).flat().map(v => (typeof v === 'string' ? v : (v.message || JSON.stringify(v))));
-              return vals.join('; ') || fallback;
-            }
+            return Object.keys(data).length ? JSON.stringify(data) : fallback;
+          } catch (e) {
+            return txt && txt.trim() ? txt.trim() : fallback;
           }
-          // fallback to stringified object if nothing else found
-          return Object.keys(data).length ? JSON.stringify(data) : fallback;
         } catch (e) {
-          // not JSON, use raw text
-          return txt && txt.trim() ? txt.trim() : fallback;
+          return fallback;
         }
-      } catch (e) {
-        return fallback;
-      }
-    };
+      };
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = form.querySelector('.form-submit');
-      const originalBtnHtml = btn.innerHTML;
-      btn.disabled = true;
-      btn.innerHTML = 'Sending... ✨';
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('.form-submit');
+        const originalBtnHtml = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = 'Sending... ✨';
 
-      const endpoint = (form.dataset && form.dataset.endpoint) ? form.dataset.endpoint.trim() : '';
-      if (!endpoint || endpoint.includes('yourFormId')) {
-        console.warn('Form endpoint not configured. Set data-endpoint on #contact-form to your Formspree endpoint.');
-        if (errorEl) {
-          errorEl.style.display = 'block';
-          errorEl.textContent = 'Form endpoint not configured. Configure Formspree and replace the form data-endpoint.';
-        }
-        btn.disabled = false;
-        btn.innerHTML = originalBtnHtml;
-        return;
-      }
-
-      const formData = new FormData(form);
-      let res;
-      const isInternal = endpoint.startsWith('/') || endpoint.startsWith(window.location.origin);
-      try {
-        if (isInternal) {
-          // send JSON to our Vercel function
-          const payload = {};
-          formData.forEach((value, key) => { payload[key] = value; });
-          res = await fetch(endpoint, {
-            method: 'POST',
-            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-        } else {
-          // external form endpoint (Formspree / formsubmit) expects FormData
-          if (formData.get('email')) formData.set('_replyto', formData.get('email'));
-          res = await fetch(endpoint, {
-            method: 'POST',
-            body: formData,
-            headers: { 'Accept': 'application/json' }
-          });
+        const endpoint = endpointAttr;
+        if (!endpoint || endpoint.includes('yourFormId')) {
+          console.warn('Form endpoint not configured. Set data-endpoint on #contact-form to your Formspree endpoint.');
+          if (errorEl) {
+            errorEl.style.display = 'block';
+            errorEl.textContent = 'Form endpoint not configured. Configure Formspree and replace the form data-endpoint.';
+          }
+          btn.disabled = false;
+          btn.innerHTML = originalBtnHtml;
+          return;
         }
 
-        if (res && res.ok) {
-          form.style.display = 'none';
-          const success = document.querySelector('.form-success');
-          if (success) success.classList.add('show');
-        } else {
-          const fallback = 'Submission failed — please try again.';
-          const msg = await extractErrorMessage(res, fallback);
-          if (errorEl) { errorEl.style.display = 'block'; errorEl.textContent = msg; }
+        const formData = new FormData(form);
+        let res;
+        const isInternal = endpoint.startsWith('/') || endpoint.startsWith(window.location.origin);
+        try {
+          if (isInternal) {
+            const payload = {};
+            formData.forEach((value, key) => { payload[key] = value; });
+            res = await fetch(endpoint, {
+              method: 'POST',
+              headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+          } else {
+            if (formData.get('email')) formData.set('_replyto', formData.get('email'));
+            res = await fetch(endpoint, {
+              method: 'POST',
+              body: formData,
+              headers: { 'Accept': 'application/json' }
+            });
+          }
+
+          if (res && res.ok) {
+            form.style.display = 'none';
+            const success = document.querySelector('.form-success');
+            if (success) success.classList.add('show');
+          } else {
+            const fallback = 'Submission failed — please try again.';
+            const msg = await extractErrorMessage(res, fallback);
+            if (errorEl) { errorEl.style.display = 'block'; errorEl.textContent = msg; }
+            btn.disabled = false;
+            btn.innerHTML = originalBtnHtml;
+          }
+        } catch (err) {
+          console.error('Contact form submission error:', err);
+          const netMsg = err && err.message ? `Network error — ${err.message}` : 'Network error — please try again.';
+          if (errorEl) { errorEl.style.display = 'block'; errorEl.textContent = netMsg; }
           btn.disabled = false;
           btn.innerHTML = originalBtnHtml;
         }
-      } catch (err) {
-        console.error('Contact form submission error:', err);
-        const netMsg = err && err.message ? `Network error — ${err.message}` : 'Network error — please try again.';
-        if (errorEl) { errorEl.style.display = 'block'; errorEl.textContent = netMsg; }
-        btn.disabled = false;
-        btn.innerHTML = originalBtnHtml;
-      }
-    });
+      });
+    }
   }
 
 
