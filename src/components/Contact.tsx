@@ -22,11 +22,11 @@ export const Contact: React.FC = () => {
 
   const servicesList = [
     'Full-Stack Web App',
-    'Tactile Landing Page',
-    'Organic 3D Experience',
+    'Landing Page',
+    '3D Interactive Feature',
     'Custom eCommerce',
-    'Website Redesign & Polish',
-    'UI/UX Design System',
+    'Website Redesign',
+    'Frontend & UI Design',
   ];
 
   const budgetOptions = [
@@ -58,7 +58,7 @@ export const Contact: React.FC = () => {
 
     // Verify hCaptcha first
     if (!captchaToken) {
-      setCaptchaError('Please complete the hCaptcha verification before sending your note.');
+      setCaptchaError('Please complete the hCaptcha check before sending your message.');
       return;
     }
 
@@ -68,7 +68,6 @@ export const Contact: React.FC = () => {
     const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '1306ed5e-2fb7-41a0-99bf-58eed56de7d2';
 
     try {
-      // Send directly to Web3Forms API
       if (accessKey) {
         const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
@@ -94,14 +93,13 @@ export const Contact: React.FC = () => {
           console.warn('Web3Forms returned an error:', result);
         }
       } else {
-        // Fallback simulate with delay if user hasn't added their key yet
         await new Promise((resolve) => setTimeout(resolve, 800));
       }
 
       setLoading(false);
       setSubmitted(true);
 
-      // Trigger Celebration Confetti
+      // Confetti celebration
       confetti({
         particleCount: 85,
         spread: 65,
@@ -134,7 +132,7 @@ export const Contact: React.FC = () => {
 
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* Left Column (Converges from Left) */}
+          {/* Left Column */}
           <motion.div
             initial={{ opacity: 0, x: -70 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -144,15 +142,15 @@ export const Contact: React.FC = () => {
           >
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F1ECE4] border border-black/5 text-xs font-mono text-[#52525B] mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-[#C86A4B]" />
-              <span>START A CONVERSATION</span>
+              <span>GET IN TOUCH</span>
             </div>
 
             <h2 className="font-['Syne'] font-extrabold text-2xl sm:text-4xl lg:text-5xl text-[#18181B] tracking-tight leading-tight mb-5 sm:mb-6">
-              Let's Create Something Effortless.
+              Let's Build Something Great Together.
             </h2>
 
             <p className="text-sm sm:text-base text-[#52525B] leading-relaxed mb-6 sm:mb-8">
-              Whether you need a full website built from scratch, an organic 3D interactive layer, or an audit to make your existing product silky smooth—I'm here to help.
+              Got an idea for a website, an ecommerce store to launch, or need a redesign that loads faster? Drop me a message and let's discuss how we can make it happen.
             </p>
 
             <div className="space-y-3 sm:space-y-4">
@@ -177,13 +175,13 @@ export const Contact: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-[11px] sm:text-xs font-mono text-[#71717A] uppercase">Response Time</div>
-                  <div className="text-xs sm:text-sm font-semibold text-[#18181B]">Usually within a few hours</div>
+                  <div className="text-xs sm:text-sm font-semibold text-[#18181B]">Usually within a few hours (IST)</div>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Right Column: Tactile Project Inquiry Form (Converges from Right) */}
+          {/* Right Column: Inquiry Form */}
           <motion.div
             initial={{ opacity: 0, x: 70 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -197,16 +195,16 @@ export const Contact: React.FC = () => {
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                 <h3 className="font-['Syne'] font-extrabold text-2xl text-[#18181B] mb-2">
-                  Inquiry Received With Thanks.
+                  Thanks for reaching out!
                 </h3>
                 <p className="text-[#71717A] text-sm max-w-md">
-                  Thank you, <span className="text-[#18181B] font-semibold">{formState.name}</span>. I've received your requirements for <span className="text-[#18181B] font-medium">{selectedServices.join(', ')}</span>. I will review and reply to <span className="text-[#18181B]">{formState.email}</span> shortly.
+                  Hey <span className="text-[#18181B] font-semibold">{formState.name}</span>, I received your note about <span className="text-[#18181B] font-medium">{selectedServices.join(', ')}</span>. I'll read through your requirements and reply directly to <span className="text-[#18181B]">{formState.email}</span> within a few hours.
                 </p>
                 <button
                   onClick={resetForm}
                   className="mt-8 px-6 py-2.5 rounded-full text-xs font-mono uppercase bg-[#F1ECE4] hover:bg-[#E8E1D5] text-[#18181B] transition-colors cursor-pointer"
                 >
-                  Send Another Note
+                  Send Another Message
                 </button>
               </div>
             ) : (
@@ -270,7 +268,7 @@ export const Contact: React.FC = () => {
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Piyush / Sarah"
+                      placeholder="e.g. Piyush / Rahul / Sarah"
                       value={formState.name}
                       onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                       className="w-full px-4 py-3 rounded-2xl bg-[#FAF8F5] border border-black/10 text-[#18181B] text-sm placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#18181B] transition-all"
@@ -294,19 +292,19 @@ export const Contact: React.FC = () => {
 
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider text-[#71717A] mb-2">
-                    Project Vision & Goals
+                    Project Vision &amp; Goals
                   </label>
                   <textarea
                     required
                     rows={4}
-                    placeholder="Tell me a little about your project, idea, or target timeline..."
+                    placeholder="Tell me a bit about what you want to build, what you like, or your target timeline..."
                     value={formState.message}
                     onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                     className="w-full px-4 py-3 rounded-2xl bg-[#FAF8F5] border border-black/10 text-[#18181B] text-sm placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#18181B] transition-all resize-none"
                   />
                 </div>
 
-                {/* 4. hCaptcha Security Widget (Mobile-Optimized & Centered) */}
+                {/* 4. hCaptcha Security Widget */}
                 <div className="pt-2 pb-1">
                   <div className="flex flex-col items-center sm:items-start w-full">
                     <div className="overflow-x-auto max-w-full rounded-2xl border border-black/5 p-1 bg-[#FAF8F5]/80 flex justify-center">
@@ -335,7 +333,7 @@ export const Contact: React.FC = () => {
                   className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-semibold text-sm bg-[#18181B] text-[#FAF8F5] hover:bg-[#3F3F46] shadow-[0_12px_28px_-6px_rgba(24,24,27,0.25)] transition-all transform hover:-translate-y-0.5 disabled:opacity-50 cursor-pointer"
                 >
                   {loading ? (
-                    <span>Verifying & Sending...</span>
+                    <span>Sending message...</span>
                   ) : (
                     <>
                       <span>Send Project Note</span>

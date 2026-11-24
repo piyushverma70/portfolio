@@ -1,34 +1,34 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Zap, Layers, Sparkles } from 'lucide-react';
+import { MessageSquare, Zap, Layers, Sparkles } from 'lucide-react';
 
 export const WhyMe: React.FC = () => {
   const points = [
     {
-      icon: Heart,
-      title: "Direct Human Collaboration",
-      description: "You work directly with me—the architect and engineer. No account managers or delayed handoffs. Clear, prompt communication.",
+      icon: MessageSquare,
+      title: "Direct Communication",
+      description: "You work directly with me—the person designing and coding your site. No account managers, no game of telephone, no delays.",
       pillBg: "#FCE8DD",
       pillColor: "#8C4A32",
     },
     {
       icon: Zap,
-      title: "Sub-Second Performance",
-      description: "No bloated page builders or heavy generic templates. Every script, font, and asset is tuned for instant loading and visual serenity.",
+      title: "Built For Speed",
+      description: "No bloated page builders or heavy generic WordPress themes. Just clean React and modern CSS that loads in a blink.",
       pillBg: "#E2ECE4",
       pillColor: "#2D5A3C",
     },
     {
       icon: Layers,
-      title: "360° Stack Ownership",
-      description: "I manage UI/UX design, interactive 3D physics, robust APIs, database architecture, and global CDN hosting in one cohesive workflow.",
+      title: "Full-Stack Ownership",
+      description: "From initial layouts and frontend components to backend APIs, database setups, and global CDN hosting—I take care of it all.",
       pillBg: "#EDE9F4",
       pillColor: "#534273",
     },
     {
       icon: Sparkles,
-      title: "Visual ASMR & Tactile Polish",
-      description: "Fluid spring animations, soft shadows, warm typography, and silky scroll physics that make visitors actually enjoy exploring your site.",
+      title: "Thoughtful Polish",
+      description: "Clean spacing, readable typography, subtle animations, and smooth scrolling that make visitors actually enjoy using your site.",
       pillBg: "#F2ECE1",
       pillColor: "#6B5A42",
     },
@@ -38,7 +38,7 @@ export const WhyMe: React.FC = () => {
     <section id="why-me" className="relative py-28 px-4 overflow-hidden border-t border-black/5">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column (Slides from Left) */}
+          {/* Left Column */}
           <motion.div
             initial={{ opacity: 0, x: -70 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -48,28 +48,28 @@ export const WhyMe: React.FC = () => {
           >
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F1ECE4] border border-black/5 text-xs font-mono text-[#52525B] mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-[#C86A4B]" />
-              <span>THE COMFORT ADVANTAGE</span>
+              <span>THE DIRECT ADVANTAGE</span>
             </div>
 
             <h2 className="font-['Syne'] font-extrabold text-3xl sm:text-5xl text-[#18181B] tracking-tight leading-tight mb-6">
-              Why People Love Working With Me.
+              Why Work With Me Directly?
             </h2>
 
             <p className="text-sm sm:text-base text-[#52525B] leading-relaxed mb-8">
-              Big agencies charge enterprise fees and delegate your dream to junior teams. I provide dedicated senior craftsmanship, obsessive attention to detail, and rapid delivery with zero headache.
+              Big agencies charge high retainers and pass your project to interns. When you work with me, I build it myself, test it thoroughly, and stay reachable whenever you have a question.
             </p>
 
             <div className="p-6 rounded-3xl bg-[#FAF6F0] border border-[#EBE3D7]">
               <div className="text-sm font-semibold text-[#18181B] mb-1">
-                "A breath of fresh air on the modern web."
+                "Direct, dependable, and easy to talk to."
               </div>
               <div className="text-xs text-[#71717A]">
-                Crafting interfaces that respect people's eyes and time.
+                I treat every client project like my own portfolio.
               </div>
             </div>
           </motion.div>
 
-          {/* Right Column: Tactile Bento Cards (Slides from Right) */}
+          {/* Right Column: Cards */}
           <motion.div
             initial={{ opacity: 0, x: 70 }}
             whileInView={{ opacity: 1, x: 0 }}

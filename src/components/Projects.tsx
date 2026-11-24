@@ -10,17 +10,17 @@ export const Projects: React.FC = () => {
         <div className="flex flex-col items-center text-center mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#F1ECE4] border border-black/5 text-xs font-mono text-[#52525B] mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#C86A4B]" />
-            <span>PROOF IN THE CRAFT</span>
+            <span>FEATURED WORK</span>
           </div>
           <h2 className="font-['Syne'] font-extrabold text-2xl sm:text-4xl lg:text-5xl text-[#18181B] tracking-tight leading-snug">
-            Real Work & Personal Inventions.
+            Client Work &amp; Personal Builds.
           </h2>
           <p className="text-[#71717A] mt-3 max-w-xl text-sm sm:text-base leading-relaxed">
-            From a commercial client website running in production to an autonomous desktop AI agent built from passion.
+            From a live commercial food products website to experimental desktop AI software.
           </p>
         </div>
 
-        {/* 1. Featured Real Client Website Spotlight */}
+        {/* 1. Featured Client Project */}
         <motion.div
           initial={{ opacity: 0, x: -70 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -44,13 +44,13 @@ export const Projects: React.FC = () => {
               </div>
 
               <h3 className="font-['Syne'] font-extrabold text-2xl sm:text-3xl lg:text-4xl text-[#18181B] mb-2 leading-snug">
-                Kashish Masale & Spices
+                Kashish Masale &amp; Spices
               </h3>
               <p className="text-xs sm:text-sm font-mono text-[#C86A4B] mb-3 sm:mb-4">
-                Shankar Food Products — Pure & Authentic Indian Spices Platform
+                Shankar Food Products — Pure &amp; Authentic Indian Spices
               </p>
               <p className="text-sm sm:text-base text-[#52525B] leading-relaxed max-w-2xl">
-                A complete commercial web presence engineered for Shankar Food Products to showcase their pure Indian spices and food products. Featuring clear typography, high-speed mobile navigation, and seamless customer order channels.
+                A complete commercial website built for Shankar Food Products to showcase their range of Indian spices. Designed for clear product discovery, fast mobile browsing on 4G networks, and direct WhatsApp customer inquiries.
               </p>
             </div>
 
@@ -74,17 +74,17 @@ export const Projects: React.FC = () => {
               Delivered Website Scope
             </div>
             <div className="flex flex-wrap gap-2">
-              <span className="pill-tag">Commercial Brand Web Design</span>
-              <span className="pill-tag">Full Product Catalog Architecture</span>
-              <span className="pill-tag">Mobile-First Responsive Layout</span>
-              <span className="pill-tag">Direct Inquiry & Order Flow</span>
-              <span className="pill-tag">High-Speed Cloudflare Edge Delivery</span>
-              <span className="pill-tag">Lighthouse Speed & SEO Optimization</span>
+              <span className="pill-tag">Commercial Brand Site</span>
+              <span className="pill-tag">Product Catalog</span>
+              <span className="pill-tag">Mobile-First Layout</span>
+              <span className="pill-tag">Direct WhatsApp &amp; Call Inquiries</span>
+              <span className="pill-tag">Cloudflare Fast Delivery</span>
+              <span className="pill-tag">Lighthouse Speed &amp; SEO</span>
             </div>
           </div>
         </motion.div>
 
-        {/* 2. Side Project: Venus AI (Autonomous Desktop AI Agent) */}
+        {/* 2. Side Project: Venus AI */}
         <motion.div
           initial={{ opacity: 0, x: 70 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -99,11 +99,11 @@ export const Projects: React.FC = () => {
             <div>
               <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
                 <span className="text-[11px] sm:text-xs font-mono font-semibold px-3 py-1 rounded-full bg-[#EDE9F4] text-[#534273] border border-[#DDD5E8]">
-                  SIDE PROJECT // DESKTOP AI AGENT
+                  SIDE PROJECT // DESKTOP SOFTWARE
                 </span>
                 <span className="text-[11px] sm:text-xs font-mono text-[#52525B] flex items-center gap-1.5">
                   <Bot className="w-3.5 h-3.5 text-[#534273]" />
-                  <span>Autonomous Desktop Software</span>
+                  <span>Desktop Automation</span>
                 </span>
               </div>
 
@@ -111,17 +111,17 @@ export const Projects: React.FC = () => {
                 Venus AI — Desktop Assistant
               </h3>
               <p className="text-xs sm:text-sm font-mono text-[#534273] mb-3 sm:mb-4">
-                Autonomous Desktop AI Assistant | Engineered by Piyush Verma
+                Autonomous Desktop Assistant | Built by Piyush Verma
               </p>
               <p className="text-sm sm:text-base text-[#52525B] leading-relaxed max-w-2xl">
-                A personal passion project exploring autonomous operating system agents. Venus AI observes the screen via computer vision, automates complex desktop workflows, responds via natural voice streaming, and executes multi-step computer tasks.
+                A personal desktop experiment exploring how software can automate repetitive computer tasks. Venus AI takes multimodal screenshots, understands user instructions, and handles routine system workflows.
               </p>
             </div>
 
-            {/* In Active Development Pill */}
+            {/* Status Pill */}
             <div className="shrink-0 flex items-center">
               <div className="w-full sm:w-auto px-4 py-2 rounded-full text-xs font-mono font-medium bg-[#F1ECE4] border border-black/5 text-[#52525B] text-center">
-                Personal Lab // Active R&D
+                Personal Lab // Active R&amp;D
               </div>
             </div>
           </div>
@@ -129,19 +129,19 @@ export const Projects: React.FC = () => {
           {/* Capabilities */}
           <div className="pt-5 sm:pt-6 border-t border-black/5 relative z-10">
             <div className="text-xs font-mono text-[#71717A] uppercase tracking-wider mb-3">
-              Core Capabilities & Architecture
+              Core Capabilities &amp; Architecture
             </div>
             <div className="flex flex-wrap gap-2">
-              <span className="pill-tag">Python & PyTorch</span>
-              <span className="pill-tag">Autonomous Computer Vision</span>
+              <span className="pill-tag">Python &amp; PyTorch</span>
+              <span className="pill-tag">Computer Vision</span>
               <span className="pill-tag">Desktop OS Automation</span>
-              <span className="pill-tag">Multimodal LLM Orchestration</span>
+              <span className="pill-tag">Local LLM Integration</span>
               <span className="pill-tag">Real-Time Voice Streaming</span>
             </div>
           </div>
         </motion.div>
 
-        {/* Quality Over Quantity Philosophy Banner */}
+        {/* Client Focus Philosophy Banner */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -155,10 +155,10 @@ export const Projects: React.FC = () => {
             </div>
             <div>
               <h4 className="font-['Syne'] font-bold text-base sm:text-lg text-[#18181B] mb-1">
-                One Client At A Time. Dedicated Craftsmanship.
+                One Project At A Time. Dedicated Focus.
               </h4>
               <p className="text-xs sm:text-sm text-[#71717A] max-w-xl leading-relaxed">
-                Rather than rushing through dozens of cookie-cutter templates, I invest 100% focused attention into every single client. When you work with me, your project is my top priority.
+                I don't juggle a dozen clients at once or outsource work to third parties. When we team up, your website gets my complete, undivided attention until you're 100% happy with it.
               </p>
             </div>
           </div>
@@ -167,7 +167,7 @@ export const Projects: React.FC = () => {
             href="#contact"
             className="shrink-0 px-6 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-white border border-black/10 text-[#18181B] hover:bg-[#18181B] hover:text-white transition-all shadow-sm text-center"
           >
-            Be My Next Flagship Project
+            Let's Work Together
           </a>
         </motion.div>
       </div>

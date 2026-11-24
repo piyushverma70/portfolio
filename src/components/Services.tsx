@@ -7,8 +7,8 @@ export const Services: React.FC = () => {
     {
       num: "01",
       icon: Code,
-      title: "Full-Stack Web Engineering",
-      description: "Clean, bespoke web platforms built on Next.js, React, and TypeScript. Robust APIs, scalable database architectures, and zero technical bloat.",
+      title: "Full-Stack Web Development",
+      description: "Custom web applications built on Next.js, React, and TypeScript. Reliable backend APIs, clean database setups, and maintainable code.",
       tags: ["Next.js", "React", "TypeScript", "Node.js", "PostgreSQL"],
       pillBg: "#E2ECE4",
       pillColor: "#2D5A3C",
@@ -16,9 +16,9 @@ export const Services: React.FC = () => {
     {
       num: "02",
       icon: Layout,
-      title: "Tactile UI/UX Design Systems",
-      description: "Figma concepts turned into living, breathing production code with accessible typography, responsive grids, and serene visual ergonomics.",
-      tags: ["Design Systems", "Figma to Code", "Fluid Grids", "Micro-Interactions"],
+      title: "Frontend & UI/UX Design",
+      description: "Taking Figma designs and turning them into clean production code with responsive layouts, readable typography, and smooth interactions.",
+      tags: ["Design Systems", "Figma to Code", "Responsive Grids", "Micro-Interactions"],
       pillBg: "#FCE8DD",
       pillColor: "#8C4A32",
     },
@@ -26,8 +26,8 @@ export const Services: React.FC = () => {
       num: "03",
       icon: Zap,
       title: "High-Converting Landing Pages",
-      description: "Fast, focused pages designed to convert curiosity into committed customers with sub-second speeds and persuasive layout flow.",
-      tags: ["Conversion Rate Flow", "Sub-Second Load", "Storytelling", "A/B Ready"],
+      description: "Fast-loading pages designed to explain your product clearly and turn visitors into leads or paying customers.",
+      tags: ["Conversion Flow", "Fast Load", "Product Story", "Clear CTAs"],
       pillBg: "#F2ECE1",
       pillColor: "#6B5A42",
     },
@@ -37,8 +37,8 @@ export const Services: React.FC = () => {
     {
       num: "04",
       icon: Orbit,
-      title: "Organic 3D & Creative Motion",
-      description: "Subtle WebGL scenes, interactive physics, custom shaders, and velvety smooth scrolling (Lenis) that feel delightful, never overwhelming.",
+      title: "3D Graphics & Creative Motion",
+      description: "Lightweight WebGL/Three.js visuals, interactive physics, and smooth scrolling that add character without slowing down page load.",
       tags: ["Three.js", "WebGL Physics", "Lenis Smooth Scroll", "Framer Motion"],
       pillBg: "#EDE9F4",
       pillColor: "#534273",
@@ -46,17 +46,17 @@ export const Services: React.FC = () => {
     {
       num: "05",
       icon: ShoppingBag,
-      title: "Frictionless eCommerce & Checkout",
-      description: "Effortless shopping experiences with ultra-low cart abandonment, tokenized payments, and instant client-side cart transitions.",
-      tags: ["Stripe Connect", "Headless Storefronts", "Instant Checkout", "Cart State"],
+      title: "eCommerce & Payment Integrations",
+      description: "Online stores with secure payment checkouts (Stripe / Razorpay), fast product catalogs, and smooth cart management.",
+      tags: ["Stripe / Payments", "Product Catalogs", "Checkout Flow", "Cart State"],
       pillBg: "#E8ECEF",
       pillColor: "#3B5266",
     },
     {
       num: "06",
       icon: Sparkles,
-      title: "Lighthouse 100 & Technical SEO",
-      description: "Obsessive optimization so your web presence ranks cleanly on search engines and delivers instant gratification on any device or network.",
+      title: "Performance & Technical SEO",
+      description: "Auditing and optimizing your site for sub-second load times, high Lighthouse scores, and proper Google search ranking.",
       tags: ["Core Web Vitals", "Lighthouse 95+", "Edge Caching", "Semantic SEO"],
       pillBg: "#E2ECE4",
       pillColor: "#2D5A3C",
@@ -70,19 +70,19 @@ export const Services: React.FC = () => {
         <div className="flex flex-col items-center text-center mb-14 sm:mb-20">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#F1ECE4] border border-black/5 text-xs font-mono text-[#52525B] mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#C86A4B]" />
-            <span>FULL ARCHITECTURE OFFERINGS</span>
+            <span>SERVICES &amp; CAPABILITIES</span>
           </div>
           <h2 className="font-['Syne'] font-extrabold text-2xl sm:text-4xl lg:text-5xl text-[#18181B] tracking-tight leading-snug">
             Everything You Need For The Web.
           </h2>
           <p className="text-[#71717A] mt-3 max-w-xl text-sm sm:text-base leading-relaxed">
-            From low-end static pages to rich interactive 3D ecosystems and fullstack SaaS—handcrafted with care.
+            From fast static landing pages to custom web applications and online stores—built with care.
           </p>
         </div>
 
-        {/* Dual Converging Columns */}
+        {/* Services Columns */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-start">
-          {/* Left Column (Enters from Left) */}
+          {/* Left Column */}
           <motion.div
             initial={{ opacity: 0, x: -70 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -128,7 +128,7 @@ export const Services: React.FC = () => {
             })}
           </motion.div>
 
-          {/* Right Column (Enters from Right) */}
+          {/* Right Column */}
           <motion.div
             initial={{ opacity: 0, x: 70 }}
             whileInView={{ opacity: 1, x: 0 }}

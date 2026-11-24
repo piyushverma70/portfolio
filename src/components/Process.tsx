@@ -7,9 +7,9 @@ export const Process: React.FC = () => {
     {
       step: "01",
       icon: Compass,
-      title: "Discovery & Blueprint",
-      subtitle: "Strategy Without Assumptions",
-      description: "We uncover the exact goals, audience expectations, and technical needs. No bloated meetings—just a sharp, actionable architecture plan.",
+      title: "Planning & Requirements",
+      subtitle: "Clear Scope From Day One",
+      description: "We discuss what your business needs, who your users are, and pick the right tools for the job. No endless meetings—just a clear, practical plan.",
       align: "left",
       pillBg: "#E2ECE4",
       pillColor: "#2D5A3C",
@@ -17,9 +17,9 @@ export const Process: React.FC = () => {
     {
       step: "02",
       icon: Palette,
-      title: "Tactile Prototyping",
-      subtitle: "Visual Calm Before Code",
-      description: "Typography, color temperatures, and interactive 3D physics tested in high fidelity. You feel the flow and comfort before engineering begins.",
+      title: "Design & Prototyping",
+      subtitle: "Getting The Look Right",
+      description: "We lock down typography, colors, and layout structure in high fidelity. You see how everything looks and flows before development starts.",
       align: "right",
       pillBg: "#FCE8DD",
       pillColor: "#8C4A32",
@@ -27,9 +27,9 @@ export const Process: React.FC = () => {
     {
       step: "03",
       icon: Terminal,
-      title: "Bespoke Engineering",
-      subtitle: "Handcrafted Modern Code",
-      description: "Built modularly with Next.js, React, and TypeScript. Fluid responsive grids, zero layout shifts, and clean maintainable code you actually own.",
+      title: "Clean Development",
+      subtitle: "Fast & Modular Code",
+      description: "Built with React, TypeScript, and modern CSS. Fluid responsive grids, zero layout shifts, and clean maintainable code you fully own.",
       align: "left",
       pillBg: "#EDE9F4",
       pillColor: "#534273",
@@ -37,9 +37,9 @@ export const Process: React.FC = () => {
     {
       step: "04",
       icon: Rocket,
-      title: "Lighthouse 100 Launch",
-      subtitle: "Flawless Global Deployment",
-      description: "Speed audit, asset minification, and global edge deployment. Your website loads instantly and feels effortless anywhere in the world.",
+      title: "Testing & Launch",
+      subtitle: "Live On Fast Edge CDN",
+      description: "Cross-device testing, speed checks, and deployment to fast global CDN networks (Cloudflare/Vercel) so your site loads reliably everywhere.",
       align: "right",
       pillBg: "#F2ECE1",
       pillColor: "#6B5A42",
@@ -53,17 +53,17 @@ export const Process: React.FC = () => {
         <div className="flex flex-col items-center text-center mb-20">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F1ECE4] border border-black/5 text-xs font-mono text-[#52525B] mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#C86A4B]" />
-            <span>THE CRAFT PROTOCOL</span>
+            <span>HOW WE WORK TOGETHER</span>
           </div>
           <h2 className="font-['Syne'] font-extrabold text-3xl sm:text-5xl text-[#18181B] tracking-tight">
-            How Thoughtful Websites Are Built.
+            From Initial Idea To Live Site.
           </h2>
           <p className="text-[#71717A] mt-3 max-w-xl text-sm sm:text-base">
-            A serene, disciplined four-step journey from early concept to worldwide deployment.
+            A straightforward four-step process so you always know what's happening and when.
           </p>
         </div>
 
-        {/* Dual Converging 2x2 Grid (Left builds from Left, Right builds from Right) */}
+        {/* 2x2 Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {steps.map((step) => {
             const isLeft = step.align === "left";
@@ -100,8 +100,8 @@ export const Process: React.FC = () => {
                 </div>
 
                 <div className="pt-6 mt-6 border-t border-black/5 flex items-center justify-between text-xs font-mono text-[#71717A]">
-                  <span>Pacing</span>
-                  <span className="text-[#2D5A3C] font-semibold">Calm & Deliberate</span>
+                  <span>Timeline</span>
+                  <span className="text-[#2D5A3C] font-semibold">Steady &amp; On-Schedule</span>
                 </div>
               </motion.div>
             );

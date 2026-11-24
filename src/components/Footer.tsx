@@ -15,7 +15,7 @@ export const Footer: React.FC = () => {
             PIYUSH <span className="font-mono text-xs text-[#71717A]">.DEV</span>
           </span>
           <p className="text-xs text-[#71717A] font-mono mt-1">
-            Handcrafted with patience, care, and full-stack precision by Piyush Verma.
+            Built with React &amp; Tailwind by Piyush Verma. Based in India.
           </p>
         </div>
 
