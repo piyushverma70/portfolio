@@ -65,11 +65,11 @@ export const Contact: React.FC = () => {
     setLoading(true);
     setCaptchaError(null);
 
-    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || 'your_access_key_here';
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '1306ed5e-2fb7-41a0-99bf-58eed56de7d2';
 
     try {
-      // If user has provided their real Web3Forms key, send directly to Web3Forms API
-      if (accessKey && accessKey !== 'your_access_key_here') {
+      // Send directly to Web3Forms API
+      if (accessKey) {
         const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: {
