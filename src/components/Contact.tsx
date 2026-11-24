@@ -77,8 +77,10 @@ export const Contact: React.FC = () => {
           },
           body: JSON.stringify({
             access_key: accessKey,
-            subject: `New Project Inquiry from ${formState.name}`,
-            from_name: 'Piyush.dev Portfolio',
+            subject: `Client Inquiry from ${formState.name}`,
+            from_name: 'Portfolio Contact Form',
+            replyto: formState.email,
+            botcheck: '',
             name: formState.name,
             email: formState.email,
             services: selectedServices.join(', '),
