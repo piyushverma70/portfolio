@@ -36,7 +36,7 @@ export function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#FAF8F5] text-[#18181B] selection:bg-[#EADCC9] selection:text-[#18181B]">
+    <div className="relative min-h-screen bg-[#F5F4F0] text-[#171717] selection:bg-[#C7F36B] selection:text-[#171717]">
       <Navbar />
       <main>
         <Hero />
@@ -48,7 +48,7 @@ export function App() {
       </main>
       <Footer />
 
-      {/* Temporary In-Memory Typography / Font Switcher (Resets on Refresh) */}
+      {/* In-Memory Typography Switcher (Resets on Refresh) */}
       <FontSwitcher />
     </div>
   );

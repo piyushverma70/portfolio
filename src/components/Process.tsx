@@ -1,108 +1,115 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Compass, Palette, Terminal, Rocket } from 'lucide-react';
+import { Search, Palette, Terminal, CheckCircle, Rocket, ArrowRight } from 'lucide-react';
 
 export const Process: React.FC = () => {
-  const steps = [
+  const stages = [
     {
-      step: "01",
-      icon: Compass,
-      title: "Planning & Requirements",
-      subtitle: "Clear Scope From Day One",
-      description: "We discuss what your business needs, who your users are, and pick the right tools for the job. No endless meetings—just a clear, practical plan.",
-      align: "left",
-      pillBg: "#E2ECE4",
-      pillColor: "#2D5A3C",
+      num: "01",
+      title: "DISCOVER",
+      subtitle: "Scope & Architecture",
+      icon: Search,
+      desc: "Deep analysis of your product goals, audience behavior, and technical constraints. We select the ideal stack and map out every requirement before writing code.",
     },
     {
-      step: "02",
+      num: "02",
+      title: "DESIGN",
+      subtitle: "Editorial Systems & Flow",
       icon: Palette,
-      title: "Design & Prototyping",
-      subtitle: "Getting The Look Right",
-      description: "We lock down typography, colors, and layout structure in high fidelity. You see how everything looks and flows before development starts.",
-      align: "right",
-      pillBg: "#FCE8DD",
-      pillColor: "#8C4A32",
+      desc: "Art-directing the visual identity, typographic scales, spatial grids, and interactive prototypes. Every screen is refined until it feels bespoke and unmistakable.",
     },
     {
-      step: "03",
+      num: "03",
+      title: "BUILD",
+      subtitle: "Clean Type-Safe Engineering",
       icon: Terminal,
-      title: "Clean Development",
-      subtitle: "Fast & Modular Code",
-      description: "Built with React, TypeScript, and modern CSS. Fluid responsive grids, zero layout shifts, and clean maintainable code you fully own.",
-      align: "left",
-      pillBg: "#EDE9F4",
-      pillColor: "#534273",
+      desc: "Handcrafted React 19 and TypeScript with strict performance budgets. Fluid responsive layouts, modular state machines, and zero layout shift.",
     },
     {
-      step: "04",
+      num: "04",
+      title: "REFINE",
+      subtitle: "Polish & Performance Audits",
+      icon: CheckCircle,
+      desc: "Rigorous cross-device testing, touch responsiveness checks, Core Web Vitals optimization, and 60-120fps motion profiling.",
+    },
+    {
+      num: "05",
+      title: "LAUNCH",
+      subtitle: "Edge Deployment & Handover",
       icon: Rocket,
-      title: "Testing & Launch",
-      subtitle: "Live On Fast Edge CDN",
-      description: "Cross-device testing, speed checks, and deployment to fast global CDN networks (Cloudflare/Vercel) so your site loads reliably everywhere.",
-      align: "right",
-      pillBg: "#F2ECE1",
-      pillColor: "#6B5A42",
+      desc: "Instant global deployment via Cloudflare Pages / Edge CDN networks, automated SSL, SEO metadata verification, and clean documentation.",
     },
   ];
 
   return (
-    <section id="process" className="relative py-28 px-4 overflow-hidden border-t border-black/5">
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F1ECE4] border border-black/5 text-xs font-mono text-[#52525B] mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C86A4B]" />
-            <span>HOW WE WORK TOGETHER</span>
+    <section id="process" className="relative py-28 sm:py-36 px-4 sm:px-6 lg:px-10 border-t border-black/8 overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+        {/* Editorial Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 sm:mb-24 pb-8 border-b border-black/8 text-left">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-black/8 text-[11px] font-mono text-[#171717] mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C7F36B]" />
+              <span>03 / THE METHOD</span>
+            </div>
+            <h2 className="font-display font-bold text-3xl sm:text-5xl lg:text-6xl text-[#171717] tracking-tight leading-[1.08]">
+              An Intentional, <br />
+              <span className="font-serif-editorial italic font-normal text-[#171717]">
+                Five-Stage Discipline.
+              </span>
+            </h2>
           </div>
-          <h2 className="font-['Syne'] font-extrabold text-3xl sm:text-5xl text-[#18181B] tracking-tight">
-            From Initial Idea To Live Site.
-          </h2>
-          <p className="text-[#71717A] mt-3 max-w-xl text-sm sm:text-base">
-            A straightforward four-step process so you always know what's happening and when.
+
+          <p className="text-sm sm:text-base text-[#737373] max-w-md leading-relaxed">
+            DISCOVER → DESIGN → BUILD → REFINE → LAUNCH. Clear communication, predictable velocity, and zero ambiguity from start to finish.
           </p>
         </div>
 
-        {/* 2x2 Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {steps.map((step) => {
-            const isLeft = step.align === "left";
-            const Icon = step.icon;
+        {/* Editorial Timeline Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 text-left relative">
+          {stages.map((stage, idx) => {
+            const Icon = stage.icon;
+
             return (
               <motion.div
-                key={step.step}
-                initial={{ opacity: 0, x: isLeft ? -70 : 70 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false, amount: 0.25 }}
-                transition={{ type: "spring", stiffness: 45, damping: 16 }}
-                className="p-8 sm:p-10 rounded-3xl bg-comfort-card text-left flex flex-col justify-between transition-all duration-300"
+                key={stage.num}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                className="group relative flex flex-col justify-between pt-6 border-t-2 border-black/10 hover:border-[#171717] transition-colors duration-300"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <span
-                      className="text-xs font-mono font-semibold px-3 py-1 rounded-full"
-                      style={{ background: step.pillBg, color: step.pillColor }}
-                    >
-                      STAGE {step.step}
+                  {/* Stage Number & Indicator */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="font-mono text-xs font-bold text-[#737373] group-hover:text-[#171717] transition-colors">
+                      STAGE {stage.num}
                     </span>
-                    <div className="w-10 h-10 rounded-2xl bg-[#F8F6F0] flex items-center justify-center text-[#18181B]">
-                      <Icon className="w-5 h-5" />
+                    <div className="w-8 h-8 rounded-lg bg-white border border-black/8 flex items-center justify-center text-[#171717] group-hover:bg-[#C7F36B] transition-colors">
+                      <Icon className="w-4 h-4" />
                     </div>
                   </div>
 
-                  <h3 className="font-['Syne'] font-bold text-2xl text-[#18181B] mb-1">
-                    {step.title}
+                  {/* Stage Title */}
+                  <h3 className="font-display font-bold text-xl sm:text-2xl text-[#171717] mb-1 tracking-tight">
+                    {stage.title}
                   </h3>
-                  <p className="text-xs font-mono text-[#C86A4B] mb-4">{step.subtitle}</p>
-                  <p className="text-sm text-[#52525B] leading-relaxed">
-                    {step.description}
+
+                  <div className="text-[11px] font-mono text-[#999999] uppercase tracking-wider mb-4">
+                    {stage.subtitle}
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-xs sm:text-sm text-[#737373] leading-relaxed font-normal">
+                    {stage.desc}
                   </p>
                 </div>
 
-                <div className="pt-6 mt-6 border-t border-black/5 flex items-center justify-between text-xs font-mono text-[#71717A]">
-                  <span>Timeline</span>
-                  <span className="text-[#2D5A3C] font-semibold">Steady &amp; On-Schedule</span>
-                </div>
+                {/* Connecting Arrow for desktop (except last) */}
+                {idx < stages.length - 1 && (
+                  <div className="hidden lg:block absolute -right-3 top-5 text-[#999999]">
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </div>
+                )}
               </motion.div>
             );
           })}

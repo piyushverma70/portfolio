@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, CheckCircle2, Mail, MessageSquare, ShieldAlert } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, ShieldAlert } from 'lucide-react';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import confetti from 'canvas-confetti';
 
@@ -21,16 +21,15 @@ export const Contact: React.FC = () => {
   const captchaRef = useRef<HCaptcha>(null);
 
   const servicesList = [
+    'Interface Design',
     'Full-Stack Web App',
-    'Landing Page',
     '3D Interactive Feature',
-    'Custom eCommerce',
-    'Website Redesign',
-    'Frontend & UI Design',
+    'E-Commerce Store',
+    'Complete Redesign',
   ];
 
   const budgetOptions = [
-    '$1,000 - $3,000',
+    '$1,500 - $3,000',
     '$3,000 - $5,000',
     '$5,000 - $10,000',
     '$10,000+',
@@ -38,7 +37,9 @@ export const Contact: React.FC = () => {
 
   const toggleService = (svc: string) => {
     if (selectedServices.includes(svc)) {
-      setSelectedServices(selectedServices.filter((s) => s !== svc));
+      if (selectedServices.length > 1) {
+        setSelectedServices(selectedServices.filter((s) => s !== svc));
+      }
     } else {
       setSelectedServices([...selectedServices, svc]);
     }
@@ -56,9 +57,8 @@ export const Contact: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Verify hCaptcha first
     if (!captchaToken) {
-      setCaptchaError('Please complete the hCaptcha check before sending your message.');
+      setCaptchaError('Please complete the verification check below before submitting.');
       return;
     }
 
@@ -68,283 +68,283 @@ export const Contact: React.FC = () => {
     const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '1306ed5e-2fb7-41a0-99bf-58eed56de7d2';
 
     try {
-      if (accessKey) {
-        const response = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: JSON.stringify({
-            access_key: accessKey,
-            subject: `Client Inquiry from ${formState.name}`,
-            from_name: 'Portfolio Contact Form',
-            replyto: formState.email,
-            botcheck: '',
-            name: formState.name,
-            email: formState.email,
-            services: selectedServices.join(', '),
-            budget: selectedBudget,
-            message: formState.message,
-            'h-captcha-response': captchaToken,
-          }),
-        });
-
-        const result = await response.json();
-        if (!result.success) {
-          console.warn('Web3Forms returned an error:', result);
-        }
-      } else {
-        await new Promise((resolve) => setTimeout(resolve, 800));
-      }
-
-      setLoading(false);
-      setSubmitted(true);
-
-      // Confetti celebration
-      confetti({
-        particleCount: 85,
-        spread: 65,
-        origin: { y: 0.6 },
-        colors: ['#C86A4B', '#2D5A3C', '#EADCC9'],
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `Digital Atelier Inquiry from ${formState.name}`,
+          from_name: 'Piyush Verma Atelier Form',
+          replyto: formState.email,
+          botcheck: '',
+          name: formState.name,
+          email: formState.email,
+          services: selectedServices.join(', '),
+          budget: selectedBudget,
+          message: formState.message,
+          'h-captcha-response': captchaToken,
+        }),
       });
-    } catch (err) {
-      console.error('Error submitting inquiry:', err);
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitted(true);
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#C7F36B', '#171717', '#FFFFFF'],
+        });
+      } else {
+        setCaptchaError(result.message || 'Submission failed. Please email directly.');
+      }
+    } catch {
+      setCaptchaError('Network communication error. Please email directly.');
+    } finally {
       setLoading(false);
-      setSubmitted(true);
     }
   };
-
-  const resetForm = () => {
-    setSubmitted(false);
-    setFormState({ name: '', email: '', message: '' });
-    setCaptchaToken(null);
-    setCaptchaError(null);
-    if (captchaRef.current) {
-      captchaRef.current.resetCaptcha();
-    }
-  };
-
-  const siteKey = import.meta.env.VITE_HCAPTCHA_SITEKEY || '50b2fe65-b00b-4b9e-ad62-3ba471098be2';
 
   return (
-    <section id="contact" className="relative py-20 sm:py-28 px-4 overflow-hidden border-t border-black/5">
-      {/* Background soft ambient warm radial */}
-      <div className="absolute right-1/4 top-1/2 w-[600px] h-[500px] bg-gradient-to-tr from-[#FCE8DD]/40 via-[#E2ECE4]/30 to-transparent blur-[140px] pointer-events-none rounded-full" />
-
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* Left Column */}
+    <section id="contact" className="relative py-28 sm:py-36 px-4 sm:px-6 lg:px-10 border-t border-black/8 overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start text-left">
+          {/* Left Column: Memorable Editorial Closing Statement */}
           <motion.div
-            initial={{ opacity: 0, x: -70 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ type: "spring", stiffness: 45, damping: 16 }}
-            className="lg:col-span-5 text-left"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 flex flex-col justify-between h-full"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F1ECE4] border border-black/5 text-xs font-mono text-[#52525B] mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#C86A4B]" />
-              <span>GET IN TOUCH</span>
-            </div>
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-black/8 text-[11px] font-mono text-[#171717] mb-6">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C7F36B]" />
+                <span>05 / INITIATE CONTACT</span>
+              </div>
 
-            <h2 className="font-['Syne'] font-extrabold text-2xl sm:text-4xl lg:text-5xl text-[#18181B] tracking-tight leading-tight mb-5 sm:mb-6">
-              Let's Build Something Great Together.
-            </h2>
+              <h2 className="font-display font-bold text-3xl sm:text-5xl lg:text-6xl text-[#171717] tracking-tight leading-[1.05] mb-6">
+                HAVE SOMETHING <br />
+                <span className="font-serif-editorial italic font-normal text-[#171717]">
+                  INTERESTING
+                </span> <br />
+                IN MIND?
+              </h2>
 
-            <p className="text-sm sm:text-base text-[#52525B] leading-relaxed mb-6 sm:mb-8">
-              Got an idea for a website, an ecommerce store to launch, or need a redesign that loads faster? Drop me a message and let's discuss how we can make it happen.
-            </p>
+              <p className="text-base text-[#737373] leading-relaxed mb-8 max-w-md font-normal">
+                Let's turn an idea into something meaningful. Tell me about your product, project timeline, and vision.
+              </p>
 
-            <div className="space-y-3 sm:space-y-4">
-              <div className="p-4 sm:p-5 rounded-3xl bg-comfort-card flex items-center gap-3 sm:gap-4">
-                <div className="w-10 h-10 rounded-2xl bg-[#E2ECE4] text-[#2D5A3C] flex items-center justify-center shrink-0">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div className="overflow-hidden">
-                  <div className="text-[11px] sm:text-xs font-mono text-[#71717A] uppercase">Direct Email</div>
+              {/* Direct Communication Channels */}
+              <div className="space-y-4 pt-6 border-t border-black/8 mb-8">
+                <div>
+                  <div className="text-[10px] font-mono text-[#999999] uppercase tracking-wider mb-1">
+                    DIRECT EMAIL
+                  </div>
                   <a
                     href="mailto:piyushverma5534@gmail.com"
-                    className="text-xs sm:text-sm font-semibold text-[#18181B] hover:text-[#C86A4B] transition-colors break-all"
+                    className="font-display font-medium text-base sm:text-lg text-[#171717] hover:text-[#737373] transition-colors flex items-center gap-2"
                   >
-                    piyushverma5534@gmail.com
+                    <span>piyushverma5534@gmail.com</span>
+                    <ArrowUpRight className="w-4 h-4 text-[#737373]" />
+                  </a>
+                </div>
+
+                <div>
+                  <div className="text-[10px] font-mono text-[#999999] uppercase tracking-wider mb-1">
+                    CODE REPOSITORY
+                  </div>
+                  <a
+                    href="https://github.com/piyushverma70"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-display font-medium text-base sm:text-lg text-[#171717] hover:text-[#737373] transition-colors flex items-center gap-2"
+                  >
+                    <span>github.com/piyushverma70</span>
+                    <ArrowUpRight className="w-4 h-4 text-[#737373]" />
                   </a>
                 </div>
               </div>
+            </div>
 
-              <div className="p-4 sm:p-5 rounded-3xl bg-comfort-card flex items-center gap-3 sm:gap-4">
-                <div className="w-10 h-10 rounded-2xl bg-[#FCE8DD] text-[#8C4A32] flex items-center justify-center shrink-0">
-                  <MessageSquare className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-[11px] sm:text-xs font-mono text-[#71717A] uppercase">Response Time</div>
-                  <div className="text-xs sm:text-sm font-semibold text-[#18181B]">Usually within a few hours (IST)</div>
-                </div>
+            <div className="p-5 rounded-2xl bg-white border border-black/8 text-xs font-mono text-[#737373]">
+              <div className="flex items-center gap-2 text-[#171717] font-semibold mb-1">
+                <span className="w-2 h-2 rounded-full bg-[#C7F36B] animate-pulse" />
+                <span>Response Time Commitment</span>
               </div>
+              <div>I typically review and reply to inquiries within 24 business hours.</div>
             </div>
           </motion.div>
 
-          {/* Right Column: Inquiry Form */}
+          {/* Right Column: High-Craft Functional Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: 70 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ type: "spring", stiffness: 45, damping: 16 }}
-            className="lg:col-span-7 p-6 sm:p-8 lg:p-10 rounded-3xl bg-comfort-card text-left overflow-hidden"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7"
           >
-            {submitted ? (
-              <div className="py-12 sm:py-16 text-center flex flex-col items-center">
-                <div className="w-16 h-16 rounded-full bg-[#E2ECE4] border border-[#D5E3D8] flex items-center justify-center mb-6 text-[#2D5A3C]">
-                  <CheckCircle2 className="w-8 h-8" />
+            <div className="atelier-card rounded-3xl p-6 sm:p-10 bg-white">
+              {submitted ? (
+                <div className="py-12 sm:py-16 text-center flex flex-col items-center">
+                  <div className="w-16 h-16 rounded-full bg-[#C7F36B] text-[#171717] flex items-center justify-center mb-6 shadow-md">
+                    <CheckCircle2 className="w-8 h-8" />
+                  </div>
+                  <h3 className="font-display font-bold text-2xl sm:text-3xl text-[#171717] mb-2">
+                    Inquiry Received.
+                  </h3>
+                  <p className="text-sm text-[#737373] max-w-sm mb-8 leading-relaxed">
+                    Thank you, {formState.name}. Your details have reached my inbox. I will review your requirements and follow up with you shortly.
+                  </p>
+                  <button
+                    onClick={() => {
+                      setSubmitted(false);
+                      setFormState({ name: '', email: '', message: '' });
+                      setCaptchaToken(null);
+                    }}
+                    className="px-6 py-2.5 rounded-xl font-display font-semibold text-xs bg-[#171717] text-[#F5F4F0] hover:bg-[#C7F36B] hover:text-[#171717] transition-all"
+                  >
+                    Send Another Message
+                  </button>
                 </div>
-                <h3 className="font-['Syne'] font-extrabold text-2xl text-[#18181B] mb-2">
-                  Thanks for reaching out!
-                </h3>
-                <p className="text-[#71717A] text-sm max-w-md">
-                  Hey <span className="text-[#18181B] font-semibold">{formState.name}</span>, I received your note about <span className="text-[#18181B] font-medium">{selectedServices.join(', ')}</span>. I'll read through your requirements and reply directly to <span className="text-[#18181B]">{formState.email}</span> within a few hours.
-                </p>
-                <button
-                  onClick={resetForm}
-                  className="mt-8 px-6 py-2.5 rounded-full text-xs font-mono uppercase bg-[#F1ECE4] hover:bg-[#E8E1D5] text-[#18181B] transition-colors cursor-pointer"
-                >
-                  Send Another Message
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
-                {/* 1. Services selection */}
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-[#71717A] mb-3">
-                    1. What can I build for you?
-                  </label>
-                  <div className="flex flex-wrap gap-2">
-                    {servicesList.map((svc) => {
-                      const active = selectedServices.includes(svc);
-                      return (
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Service Selection */}
+                  <div>
+                    <label className="block text-xs font-mono uppercase tracking-wider text-[#737373] mb-3">
+                      I'M LOOKING FOR ASSISTANCE WITH:
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {servicesList.map((svc) => {
+                        const isSelected = selectedServices.includes(svc);
+                        return (
+                          <button
+                            type="button"
+                            key={svc}
+                            onClick={() => toggleService(svc)}
+                            className={`px-3.5 py-1.5 rounded-full text-xs font-mono transition-all duration-200 cursor-pointer ${
+                              isSelected
+                                ? 'bg-[#171717] text-[#C7F36B] font-semibold'
+                                : 'bg-[#F5F4F0] text-[#737373] hover:text-[#171717] hover:bg-[#EBE9E4]'
+                            }`}
+                          >
+                            {svc}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Budget Selector */}
+                  <div>
+                    <label className="block text-xs font-mono uppercase tracking-wider text-[#737373] mb-3">
+                      ANTICIPATED PROJECT BUDGET:
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {budgetOptions.map((b) => (
                         <button
                           type="button"
-                          key={svc}
-                          onClick={() => toggleService(svc)}
-                          className={`px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-2xl text-xs font-mono transition-all cursor-pointer ${
-                            active
-                              ? 'bg-[#18181B] text-[#FAF8F5] font-semibold shadow-sm'
-                              : 'bg-[#FAF8F5] border border-black/5 text-[#52525B] hover:border-black/15'
+                          key={b}
+                          onClick={() => setSelectedBudget(b)}
+                          className={`px-3.5 py-1.5 rounded-full text-xs font-mono transition-all duration-200 cursor-pointer ${
+                            selectedBudget === b
+                              ? 'bg-[#171717] text-[#C7F36B] font-semibold'
+                              : 'bg-[#F5F4F0] text-[#737373] hover:text-[#171717] hover:bg-[#EBE9E4]'
                           }`}
                         >
-                          {active ? '✓ ' : '+ '}
-                          {svc}
+                          {b}
                         </button>
-                      );
-                    })}
+                      ))}
+                    </div>
                   </div>
-                </div>
 
-                {/* 2. Budget Scope */}
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-[#71717A] mb-3">
-                    2. Target Scope
-                  </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    {budgetOptions.map((b) => (
-                      <button
-                        type="button"
-                        key={b}
-                        onClick={() => setSelectedBudget(b)}
-                        className={`px-3 py-2.5 rounded-2xl text-xs font-mono transition-all cursor-pointer text-center ${
-                          selectedBudget === b
-                            ? 'bg-[#18181B] text-[#FAF8F5] font-semibold shadow-sm'
-                            : 'bg-[#FAF8F5] border border-black/5 text-[#52525B] hover:border-black/15'
-                        }`}
-                      >
-                        {b}
-                      </button>
-                    ))}
+                  {/* Name & Email Fields */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-mono uppercase tracking-wider text-[#737373] mb-2">
+                        YOUR NAME *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={formState.name}
+                        onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                        placeholder="e.g. Alex Morgan"
+                        className="w-full px-4 py-3 rounded-xl bg-[#F5F4F0] border border-black/8 focus:border-[#171717] focus:bg-white text-sm text-[#171717] outline-none transition-colors"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-mono uppercase tracking-wider text-[#737373] mb-2">
+                        YOUR EMAIL *
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={formState.email}
+                        onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                        placeholder="alex@company.com"
+                        className="w-full px-4 py-3 rounded-xl bg-[#F5F4F0] border border-black/8 focus:border-[#171717] focus:bg-white text-sm text-[#171717] outline-none transition-colors"
+                      />
+                    </div>
                   </div>
-                </div>
 
-                {/* 3. Inputs */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Message Field */}
                   <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-[#71717A] mb-2">
-                      Your Name
+                    <label className="block text-xs font-mono uppercase tracking-wider text-[#737373] mb-2">
+                      PROJECT OVERVIEW &amp; TIMELINE *
                     </label>
-                    <input
-                      type="text"
+                    <textarea
                       required
-                      placeholder="e.g. Piyush / Rahul / Sarah"
-                      value={formState.name}
-                      onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                      className="w-full px-4 py-3 rounded-2xl bg-[#FAF8F5] border border-black/10 text-[#18181B] text-sm placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#18181B] transition-all"
+                      rows={4}
+                      value={formState.message}
+                      onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                      placeholder="Tell me about what you're building, target launch dates, or links to references..."
+                      className="w-full px-4 py-3 rounded-xl bg-[#F5F4F0] border border-black/8 focus:border-[#171717] focus:bg-white text-sm text-[#171717] outline-none transition-colors resize-none"
                     />
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-[#71717A] mb-2">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="you@domain.com"
-                      value={formState.email}
-                      onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                      className="w-full px-4 py-3 rounded-2xl bg-[#FAF8F5] border border-black/10 text-[#18181B] text-sm placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#18181B] transition-all"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-[#71717A] mb-2">
-                    Project Vision &amp; Goals
-                  </label>
-                  <textarea
-                    required
-                    rows={4}
-                    placeholder="Tell me a bit about what you want to build, what you like, or your target timeline..."
-                    value={formState.message}
-                    onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                    className="w-full px-4 py-3 rounded-2xl bg-[#FAF8F5] border border-black/10 text-[#18181B] text-sm placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#18181B] transition-all resize-none"
-                  />
-                </div>
-
-                {/* 4. hCaptcha Security Widget */}
-                <div className="pt-2 pb-1">
-                  <div className="flex flex-col items-center sm:items-start w-full">
-                    <div className="overflow-x-auto max-w-full rounded-2xl border border-black/5 p-1 bg-[#FAF8F5]/80 flex justify-center">
+                  {/* hCaptcha Container */}
+                  <div className="pt-2">
+                    <div className="flex justify-start overflow-hidden">
                       <HCaptcha
-                        sitekey={siteKey}
+                        sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
                         onVerify={onCaptchaVerify}
                         onExpire={onCaptchaExpire}
                         ref={captchaRef}
-                        theme="light"
                       />
                     </div>
 
                     {captchaError && (
-                      <div className="flex items-center gap-2 mt-2.5 text-xs text-[#C86A4B] font-medium text-center sm:text-left">
-                        <ShieldAlert className="w-4 h-4 shrink-0" />
+                      <div className="flex items-center gap-2 mt-2 text-xs text-[#DC2626] font-mono">
+                        <ShieldAlert className="w-4 h-4" />
                         <span>{captchaError}</span>
                       </div>
                     )}
                   </div>
-                </div>
 
-                {/* Submit Action Button */}
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-semibold text-sm bg-[#18181B] text-[#FAF8F5] hover:bg-[#3F3F46] shadow-[0_12px_28px_-6px_rgba(24,24,27,0.25)] transition-all transform hover:-translate-y-0.5 disabled:opacity-50 cursor-pointer"
-                >
-                  {loading ? (
-                    <span>Sending message...</span>
-                  ) : (
-                    <>
-                      <span>Send Project Note</span>
-                      <ArrowUpRight className="w-4 h-4" />
-                    </>
-                  )}
-                </button>
-              </form>
-            )}
+                  {/* Submit Action Button */}
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full py-4 rounded-xl font-display font-semibold text-sm bg-[#171717] text-[#F5F4F0] hover:bg-[#C7F36B] hover:text-[#171717] transition-all duration-300 shadow-sm cursor-pointer disabled:opacity-50 flex items-center justify-center gap-2"
+                  >
+                    {loading ? (
+                      <span>Sending Encrypted Message...</span>
+                    ) : (
+                      <>
+                        <span>Submit Project Inquiry</span>
+                        <ArrowUpRight className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+                </form>
+              )}
+            </div>
           </motion.div>
         </div>
       </div>

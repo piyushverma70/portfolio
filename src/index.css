@@ -2,14 +2,15 @@
 
 @layer base {
   :root {
-    --bg-sand: #FAF8F5;
-    --bg-card: #FFFFFF;
-    --text-primary: #18181B;
-    --text-secondary: #52525B;
-    --accent-clay: #EADCC9;
-    --accent-sage: #DCE5DD;
-    --accent-peach: #F6E2D8;
-    --accent-dark: #121214;
+    --bg-atelier: #F5F4F0;
+    --bg-surface: #FFFFFF;
+    --text-primary: #171717;
+    --text-muted: #737373;
+    --text-subtle: #999999;
+    --accent-lime: #C7F36B;
+    --accent-lime-dim: #b8e85c;
+    --border-hairline: rgba(23, 23, 23, 0.08);
+    --border-hairline-dark: rgba(23, 23, 23, 0.16);
   }
 
   * {
@@ -19,14 +20,27 @@
   }
 
   body {
-    background-color: #FAF8F5;
-    color: #18181B;
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #F5F4F0;
+    color: #171717;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
-    selection-background-color: #E6DCBA;
-    selection-color: #18181B;
+    selection-background-color: #C7F36B;
+    selection-color: #171717;
   }
+}
+
+/* Custom Editorial Typography Classes */
+.font-display {
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+}
+
+.font-serif-editorial {
+  font-family: 'Instrument Serif', Georgia, serif;
+}
+
+.font-mono-code {
+  font-family: 'JetBrains Mono', monospace;
 }
 
 /* Dynamic Font Switcher In-Memory Injection (Resets on Refresh) */
@@ -41,20 +55,34 @@
   font-family: var(--custom-site-font) !important;
 }
 
-/* ASMR Warm Light Theme Utilities */
-.bg-comfort-card {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 16px 36px -12px rgba(45, 35, 25, 0.05), 0 2px 6px rgba(0, 0, 0, 0.02);
-  transition: all 0.3s ease;
+/* Digital Atelier Hairline & Card Utilities */
+.atelier-hairline-border {
+  border: 1px solid rgba(23, 23, 23, 0.08);
 }
 
-.bg-comfort-card:hover {
-  background: #ffffff;
-  border-color: rgba(0, 0, 0, 0.12);
-  box-shadow: 0 24px 48px -12px rgba(45, 35, 25, 0.09), 0 4px 12px rgba(0, 0, 0, 0.03);
+.atelier-hairline-t {
+  border-top: 1px solid rgba(23, 23, 23, 0.08);
+}
+
+.atelier-hairline-b {
+  border-bottom: 1px solid rgba(23, 23, 23, 0.08);
+}
+
+.atelier-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.atelier-card:hover {
+  border-color: rgba(23, 23, 23, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px -15px rgba(23, 23, 23, 0.06);
+}
+
+.badge-lime {
+  background-color: #C7F36B;
+  color: #171717;
 }
 
 .pill-tag {
@@ -65,29 +93,29 @@
   font-size: 0.75rem;
   font-weight: 500;
   line-height: 1.35;
-  background: #F3EEE6;
-  color: #3F3F46;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: #F5F4F0;
+  color: #171717;
+  border: 1px solid rgba(23, 23, 23, 0.08);
   white-space: nowrap;
   transition: all 0.25s ease;
 }
 
 .pill-tag:hover {
-  background: #EAE3D6;
-  color: #18181B;
+  background: #EBE9E4;
+  color: #171717;
 }
 
-/* Custom Soft Scrollbar */
+/* Custom Editorial Scrollbar */
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF8F5;
+  background: #F5F4F0;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D9D2C7;
-  border-radius: 4px;
+  background: #D5D4D0;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C2BAAC;
+  background: #171717;
 }

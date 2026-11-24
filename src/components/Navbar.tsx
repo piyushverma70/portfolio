@@ -8,18 +8,18 @@ export const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 25);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
-    { label: 'Services', href: '#services' },
     { label: 'Selected Work', href: '#projects' },
+    { label: 'Expertise', href: '#services' },
     { label: 'The Method', href: '#process' },
-    { label: 'Why Me', href: '#why-me' },
-    { label: 'Get In Touch', href: '#contact' },
+    { label: 'Philosophy', href: '#why-me' },
+    { label: 'Contact', href: '#contact' },
   ];
 
   const handleLinkClick = () => {
@@ -27,87 +27,84 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 pt-3 sm:pt-5 transition-all duration-300">
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 pt-3 sm:pt-4 transition-all duration-300">
       <nav
-        className={`w-full max-w-6xl flex items-center justify-between px-4 sm:px-6 py-3 rounded-full transition-all duration-300 ${
+        className={`w-full max-w-7xl flex items-center justify-between px-5 sm:px-7 py-3 rounded-2xl transition-all duration-300 ${
           scrolled || mobileMenuOpen
-            ? 'bg-white/90 backdrop-blur-xl shadow-[0_10px_30px_-10px_rgba(40,30,20,0.08)] border border-black/5'
-            : 'bg-white/40 backdrop-blur-md sm:bg-transparent border border-black/5'
+            ? 'bg-white/95 backdrop-blur-xl shadow-[0_12px_36px_-12px_rgba(23,23,23,0.08)] border border-black/8'
+            : 'bg-white/50 backdrop-blur-md sm:bg-transparent border border-black/5'
         }`}
       >
-        {/* Brand Monogram & Name */}
-        <a href="#hero" className="flex items-center gap-2.5 sm:gap-3 group" onClick={handleLinkClick}>
-          <div className="w-8 h-8 rounded-full bg-[#18181B] text-[#FAF8F5] flex items-center justify-center font-bold text-xs tracking-wider transition-transform duration-300 group-hover:scale-105 shrink-0">
-            P
+        {/* Brand Identity / Atelier Monogram */}
+        <a href="#hero" className="flex items-center gap-3 group" onClick={handleLinkClick}>
+          <div className="w-8 h-8 rounded-lg bg-[#171717] text-[#C7F36B] flex items-center justify-center font-display font-bold text-xs tracking-wider transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_16px_rgba(199,243,107,0.4)] shrink-0">
+            PV
           </div>
           <div className="flex flex-col text-left">
-            <span className="font-['Syne'] font-extrabold text-sm tracking-wide text-[#18181B] leading-none">
-              PIYUSH
+            <span className="font-display font-bold text-sm tracking-tight text-[#171717] leading-tight">
+              PIYUSH VERMA
             </span>
-            <span className="text-[10px] text-[#71717A] font-mono tracking-wider truncate max-w-[140px] sm:max-w-none">
-              Full-Stack Web Craftsman
+            <span className="text-[10px] text-[#737373] font-mono tracking-wider">
+              DIGITAL ATELIER
             </span>
           </div>
         </a>
 
         {/* Desktop Navigation Links */}
-        <div className="hidden md:flex items-center gap-7 lg:gap-8 text-xs font-medium text-[#52525B]">
+        <div className="hidden md:flex items-center gap-8 text-xs font-medium text-[#737373]">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="hover:text-[#18181B] transition-colors py-1"
+              className="hover:text-[#171717] transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#171717] hover:after:w-full after:transition-all after:duration-200"
             >
               {link.label}
             </a>
           ))}
         </div>
 
-        {/* Right Status & Action Buttons */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-[#E5EEE7] border border-[#D5E3D8] text-[11px] text-[#2D5A3C] font-mono">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#3D7A52] animate-pulse"></span>
-            Available For Projects
+        {/* Right Status & Action Button */}
+        <div className="flex items-center gap-3">
+          {/* Availability Status Indicator */}
+          <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-black/8 text-[11px] text-[#171717] font-mono">
+            <span className="w-2 h-2 rounded-full bg-[#C7F36B] shadow-[0_0_8px_#C7F36B] animate-pulse" />
+            <span className="tracking-tight">Available For Projects</span>
           </div>
 
           <a
             href="#contact"
-            className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-[#18181B] text-[#FAF8F5] hover:bg-[#3F3F46] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)] transition-all transform hover:-translate-y-0.5"
+            className="hidden sm:inline-flex items-center gap-1.5 px-4.5 py-2 rounded-xl text-xs font-semibold bg-[#171717] text-[#F5F4F0] hover:bg-[#C7F36B] hover:text-[#171717] transition-all duration-300 transform hover:-translate-y-0.5 shadow-sm"
           >
-            <span>Let's Talk</span>
+            <span>Let's Connect</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
           </a>
 
-          {/* Mobile Hamburger Toggle Button */}
+          {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-full bg-black/5 hover:bg-black/10 text-[#18181B] transition-colors cursor-pointer"
-            aria-label="Toggle Navigation Menu"
+            className="md:hidden p-2 rounded-xl text-[#171717] hover:bg-black/5 transition-colors focus:outline-none"
+            aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
           >
-            {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </nav>
 
-      {/* Mobile Navigation Drawer */}
+      {/* Mobile Drawer Navigation */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -15, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.98 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="fixed top-20 left-4 right-4 z-40 p-6 rounded-3xl bg-white/95 backdrop-blur-2xl border border-black/10 shadow-[0_20px_50px_rgba(0,0,0,0.12)] md:hidden text-left"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden fixed top-[68px] left-4 right-4 bg-white/98 backdrop-blur-2xl rounded-2xl border border-black/10 shadow-2xl p-6 z-40"
           >
-            <div className="flex flex-col gap-4">
-              <div className="flex items-center justify-between pb-3 border-b border-black/5">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-[#71717A]">
-                  Navigation
-                </span>
-                <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#E5EEE7] text-[10px] text-[#2D5A3C] font-mono">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#3D7A52] animate-pulse"></span>
-                  Available
-                </span>
+            <div className="flex flex-col gap-4 text-left">
+              {/* Availability tag inside drawer */}
+              <div className="flex items-center gap-2 pb-3 border-b border-black/5 text-xs font-mono text-[#737373]">
+                <span className="w-2 h-2 rounded-full bg-[#C7F36B] animate-pulse" />
+                <span>Available for new collaborations</span>
               </div>
 
               {navLinks.map((link) => (
@@ -115,29 +112,26 @@ export const Navbar: React.FC = () => {
                   key={link.label}
                   href={link.href}
                   onClick={handleLinkClick}
-                  className="text-base font-semibold text-[#18181B] hover:text-[#C86A4B] transition-colors py-1 flex items-center justify-between"
+                  className="font-display font-medium text-lg text-[#171717] hover:text-[#737373] transition-colors py-1 flex items-center justify-between"
                 >
                   <span>{link.label}</span>
-                  <ArrowUpRight className="w-4 h-4 text-[#A1A1AA]" />
+                  <ArrowUpRight className="w-4 h-4 text-[#737373]" />
                 </a>
               ))}
 
-              <div className="pt-4 mt-2 border-t border-black/5 flex flex-col gap-2.5">
+              <div className="pt-4 mt-2 border-t border-black/5 flex flex-col gap-3">
                 <a
                   href="#contact"
                   onClick={handleLinkClick}
-                  className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl text-xs font-semibold bg-[#18181B] text-[#FAF8F5] shadow-sm"
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#171717] text-[#C7F36B] font-display font-semibold text-sm"
                 >
-                  <span>Start A Project / Let's Talk</span>
+                  <span>Let's Connect</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </a>
 
-                <a
-                  href="mailto:piyushverma5534@gmail.com"
-                  className="text-center text-xs font-mono text-[#71717A] hover:text-[#18181B] py-1"
-                >
+                <div className="text-[11px] font-mono text-[#999999] text-center pt-2">
                   piyushverma5534@gmail.com
-                </a>
+                </div>
               </div>
             </div>
           </motion.div>

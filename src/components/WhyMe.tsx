@@ -1,106 +1,121 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MessageSquare, Zap, Layers, Sparkles } from 'lucide-react';
+import { Cpu, Eye, Sparkles, Sliders } from 'lucide-react';
 
 export const WhyMe: React.FC = () => {
-  const points = [
+  const principles = [
     {
-      icon: MessageSquare,
-      title: "Direct Communication",
-      description: "You work directly with me—the person designing and coding your site. No account managers, no game of telephone, no delays.",
-      pillBg: "#FCE8DD",
-      pillColor: "#8C4A32",
+      num: "01",
+      icon: Eye,
+      title: "Meticulous Attention to Detail",
+      desc: "Typography, negative space, interaction curves, and color contrast are never afterthoughts. A design only feels truly premium when every subtle detail works in quiet harmony.",
     },
     {
-      icon: Zap,
-      title: "Built For Speed",
-      description: "No bloated page builders or heavy generic WordPress themes. Just clean React and modern CSS that loads in a blink.",
-      pillBg: "#E2ECE4",
-      pillColor: "#2D5A3C",
+      num: "02",
+      icon: Sliders,
+      title: "Design-Driven Engineering",
+      desc: "Great engineering starts with design empathy. Code exists to solve real human problems, eliminate friction, and create interfaces that feel natural, intuitive, and effortless.",
     },
     {
-      icon: Layers,
-      title: "Full-Stack Ownership",
-      description: "From initial layouts and frontend components to backend APIs, database setups, and global CDN hosting—I take care of it all.",
-      pillBg: "#EDE9F4",
-      pillColor: "#534273",
+      num: "03",
+      icon: Cpu,
+      title: "Clean, Zero-Bloat Systems",
+      desc: "No sluggish multi-megabyte CMS themes or fragile page builders. Only handcrafted TypeScript, modular React components, and edge caching that load in sub-seconds.",
     },
     {
+      num: "04",
       icon: Sparkles,
-      title: "Thoughtful Polish",
-      description: "Clean spacing, readable typography, subtle animations, and smooth scrolling that make visitors actually enjoy using your site.",
-      pillBg: "#F2ECE1",
-      pillColor: "#6B5A42",
+      title: "Creative Experimentation",
+      desc: "Blending creative WebGL 3D elements, ambient lighting, and bespoke typography while staying strictly grounded in accessibility and rock-solid usability.",
     },
   ];
 
   return (
-    <section id="why-me" className="relative py-28 px-4 overflow-hidden border-t border-black/5">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column */}
+    <section id="why-me" className="relative py-28 sm:py-36 px-4 sm:px-6 lg:px-10 border-t border-black/8 overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start text-left">
+          {/* Left Column: Personal Manifesto & Context */}
           <motion.div
-            initial={{ opacity: 0, x: -70 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ type: "spring", stiffness: 45, damping: 16 }}
-            className="lg:col-span-5 text-left"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 flex flex-col justify-between"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F1ECE4] border border-black/5 text-xs font-mono text-[#52525B] mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#C86A4B]" />
-              <span>THE DIRECT ADVANTAGE</span>
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-black/8 text-[11px] font-mono text-[#171717] mb-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C7F36B]" />
+                <span>04 / PHILOSOPHY</span>
+              </div>
+
+              <h2 className="font-display font-bold text-3xl sm:text-5xl lg:text-6xl text-[#171717] tracking-tight leading-[1.08] mb-6">
+                Thoughtful Design. <br />
+                <span className="font-serif-editorial italic font-normal text-[#171717]">
+                  Intelligent Engineering.
+                </span>
+              </h2>
+
+              <p className="text-base text-[#737373] leading-relaxed mb-8 font-normal">
+                I operate as an independent creative developer because I believe the best digital experiences are built when the person shaping the visual concept is the same person engineering the architecture.
+              </p>
+
+              <div className="p-6 rounded-2xl bg-white border border-black/8 space-y-3 mb-8">
+                <div className="text-xs font-mono text-[#737373] uppercase tracking-wider">
+                  DIRECT COLLABORATION
+                </div>
+                <p className="text-sm text-[#171717] font-medium leading-relaxed">
+                  "No layers of account managers or delayed handoffs. You collaborate directly with me from wireframe to deployment."
+                </p>
+                <div className="text-xs font-mono text-[#999999]">
+                  — Piyush Verma
+                </div>
+              </div>
             </div>
 
-            <h2 className="font-['Syne'] font-extrabold text-3xl sm:text-5xl text-[#18181B] tracking-tight leading-tight mb-6">
-              Why Work With Me Directly?
-            </h2>
-
-            <p className="text-sm sm:text-base text-[#52525B] leading-relaxed mb-8">
-              Big agencies charge high retainers and pass your project to interns. When you work with me, I build it myself, test it thoroughly, and stay reachable whenever you have a question.
-            </p>
-
-            <div className="p-6 rounded-3xl bg-[#FAF6F0] border border-[#EBE3D7]">
-              <div className="text-sm font-semibold text-[#18181B] mb-1">
-                "Direct, dependable, and easy to talk to."
-              </div>
-              <div className="text-xs text-[#71717A]">
-                I treat every client project like my own portfolio.
-              </div>
+            <div className="pt-6 border-t border-black/8 flex items-center justify-between text-xs font-mono text-[#737373]">
+              <span>EST. DIGITAL ATELIER</span>
+              <span>GLOBAL CLIENTELE</span>
             </div>
           </motion.div>
 
-          {/* Right Column: Cards */}
-          <motion.div
-            initial={{ opacity: 0, x: 70 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ type: "spring", stiffness: 45, damping: 16 }}
-            className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left"
-          >
-            {points.map((pt) => {
-              const Icon = pt.icon;
-              return (
-                <div
-                  key={pt.title}
-                  className="p-6 sm:p-7 rounded-3xl bg-comfort-card transition-all duration-300"
-                >
-                  <div
-                    className="w-10 h-10 rounded-2xl flex items-center justify-center mb-5"
-                    style={{ background: pt.pillBg, color: pt.pillColor }}
-                  >
-                    <Icon className="w-5 h-5" />
-                  </div>
+          {/* Right Column: Editorial Principles Ledger */}
+          <div className="lg:col-span-7 divide-y divide-black/8 border-t border-b border-black/8">
+            {principles.map((p, idx) => {
+              const Icon = p.icon;
 
-                  <h3 className="font-['Syne'] font-bold text-lg text-[#18181B] mb-2">
-                    {pt.title}
-                  </h3>
-                  <p className="text-xs text-[#71717A] leading-relaxed">
-                    {pt.description}
-                  </p>
-                </div>
+              return (
+                <motion.div
+                  key={p.num}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.6, delay: idx * 0.08 }}
+                  className="py-8 sm:py-10 group hover:bg-black/[0.015] transition-colors"
+                >
+                  <div className="flex items-start gap-6">
+                    <span className="font-mono text-sm font-bold text-[#999999] pt-1">
+                      {p.num}
+                    </span>
+
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-7 h-7 rounded-lg bg-white border border-black/8 flex items-center justify-center text-[#171717]">
+                          <Icon className="w-3.5 h-3.5" />
+                        </div>
+                        <h3 className="font-display font-bold text-xl sm:text-2xl text-[#171717] tracking-tight">
+                          {p.title}
+                        </h3>
+                      </div>
+
+                      <p className="text-sm text-[#737373] leading-relaxed font-normal">
+                        {p.desc}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
