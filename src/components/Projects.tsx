@@ -106,7 +106,7 @@ export const Projects: React.FC = () => {
                 ))}
               </div>
 
-              {/* Action Buttons: View Project CTA + Text-only GitHub Link (No Github Icon!) */}
+              {/* Action Buttons: View Project CTA */}
               <div className="flex items-center gap-3">
                 <a
                   href="https://kashishbyshankarfoodproducts.co.in/"
@@ -116,16 +116,6 @@ export const Projects: React.FC = () => {
                 >
                   <span>View Project</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-
-                <a
-                  href="https://github.com/piyushverma70/portfolio"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-5 py-3 rounded-full font-display font-medium text-xs sm:text-sm bg-transparent hover:bg-black/5 text-[#171717] border border-black/15 transition-all"
-                >
-                  <span>GitHub</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-[#737373]" />
                 </a>
               </div>
             </div>

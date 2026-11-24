@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowUp, Mail } from 'lucide-react';
-import { GithubIcon, TwitterIcon, LinkedinIcon } from './Icons';
+import { GithubIcon } from './Icons';
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -30,26 +30,6 @@ export const Footer: React.FC = () => {
             title="GitHub (@piyushverma70)"
           >
             <GithubIcon className="w-3.5 h-3.5" />
-          </a>
-
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-8 h-8 rounded-full bg-white border border-black/10 flex items-center justify-center text-[#171717] hover:bg-[#C7F36B] transition-colors"
-            title="LinkedIn"
-          >
-            <LinkedinIcon className="w-3.5 h-3.5" />
-          </a>
-
-          <a
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-8 h-8 rounded-full bg-white border border-black/10 flex items-center justify-center text-[#171717] hover:bg-[#C7F36B] transition-colors"
-            title="Twitter"
-          >
-            <TwitterIcon className="w-3.5 h-3.5" />
           </a>
 
           <a
