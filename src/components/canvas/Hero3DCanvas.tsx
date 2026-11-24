@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { createStudioEnvironment } from './studioEnv';
 
 export const Hero3DCanvas: React.FC = () => {
@@ -18,7 +19,7 @@ export const Hero3DCanvas: React.FC = () => {
     const scene = new THREE.Scene();
 
     const camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 100);
-    camera.position.set(0, 0, 6.4);
+    camera.position.set(0, 0, 6.0);
 
     // 2. High-Precision WebGL Renderer with ACES Tone Mapping
     const renderer = new THREE.WebGLRenderer({
@@ -29,177 +30,191 @@ export const Hero3DCanvas: React.FC = () => {
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.35;
     container.appendChild(renderer.domElement);
 
-    // 3. HDR Studio Environment Map
+    // 3. Studio HDR Environment Map
     const studioEnv = createStudioEnvironment(renderer);
     scene.environment = studioEnv.envTexture;
 
     // 4. Studio Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
     scene.add(ambientLight);
 
     // Key Studio Light (overhead front-right softbox)
-    const keyLight = new THREE.DirectionalLight(0xffffff, 2.5);
-    keyLight.position.set(4.0, 6.0, 4.5);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 3.2);
+    keyLight.position.set(4.5, 6.0, 5.0);
     scene.add(keyLight);
 
     // Left Fill Softbox (front-left fill)
-    const fillLight = new THREE.DirectionalLight(0xe8edf2, 1.4);
-    fillLight.position.set(-4.0, 2.5, 4.5);
+    const fillLight = new THREE.DirectionalLight(0xe8edf2, 1.6);
+    fillLight.position.set(-4.5, 2.5, 4.5);
     scene.add(fillLight);
 
-    // Electric Lime Accent Light (lower bevel bounce)
-    const limeRimLight = new THREE.PointLight(0xc7f36b, 3.2, 7, 1.2);
-    limeRimLight.position.set(1.8, -1.2, 0.8);
-    scene.add(limeRimLight);
+    // Top Rim Light
+    const topRimLight = new THREE.DirectionalLight(0xffffff, 2.2);
+    topRimLight.position.set(0, 7.0, -2.0);
+    scene.add(topRimLight);
 
     // 5. Sculpture Group
     const sculptureGroup = new THREE.Group();
-    // 3/4 perspective angle showing off the sculptural beveled depth
-    sculptureGroup.rotation.x = 0.14;
-    sculptureGroup.rotation.y = -0.26;
+    // Default 3/4 perspective angle matching reference editorial visual
+    const DEFAULT_ROT_X = 0.14;
+    const DEFAULT_ROT_Y = -0.22;
+    sculptureGroup.rotation.x = DEFAULT_ROT_X;
+    sculptureGroup.rotation.y = DEFAULT_ROT_Y;
     scene.add(sculptureGroup);
 
+    // Dedicated Electric Lime Under-Glow Point Light (attached to sculpture group)
+    const limeAccentLight = new THREE.PointLight(0xc7f36b, 6.0, 7.0, 1.2);
+    limeAccentLight.position.set(0.2, -1.2, 0.7);
+    sculptureGroup.add(limeAccentLight);
+
+    // Electric Lime Rim Back Light (casts vibrant lime highlights on lower bevels)
+    const limeRimBack = new THREE.DirectionalLight(0xc7f36b, 2.0);
+    limeRimBack.position.set(0.5, -3.0, -2.0);
+    sculptureGroup.add(limeRimBack);
+
     // 6. Materials
-    // Liquid Mirror Chrome Material
-    // In Three.js PBR: metalness 0.98 + pure white produces true liquid mirror chrome
-    // reflecting the HDR studio environment with smooth highlights and deep graphite depth
-    const chromeMaterial = new THREE.MeshPhysicalMaterial({
+    // Luxury Liquid Chrome Material
+    const liquidChromeMaterial = new THREE.MeshPhysicalMaterial({
       color: 0xffffff,
       metalness: 0.98,
-      roughness: 0.14,
+      roughness: 0.12,
       clearcoat: 1.0,
-      clearcoatRoughness: 0.04,
+      clearcoatRoughness: 0.03,
       reflectivity: 1.0,
-      envMapIntensity: 1.6,
+      envMapIntensity: 1.9,
     });
 
-    // Luminous Lime Foundation Layer (1:1 footprint directly behind the chrome letters — ZERO outline border)
-    const limeFoundationMaterial = new THREE.MeshStandardMaterial({
-      color: 0xc7f36b,
-      emissive: 0xc7f36b,
-      emissiveIntensity: 0.85,
-      roughness: 0.18,
-      metalness: 0.08,
-    });
-
-    // Delicate Translucent Electric-Lime Orbit Ring
+    // Luminous Translucent Lime Orbit Material
     const limeTranslucentMaterial = new THREE.MeshPhysicalMaterial({
       color: 0xc7f36b,
       transparent: true,
-      opacity: 0.82,
-      transmission: 0.6,
-      roughness: 0.10,
+      opacity: 0.85,
+      transmission: 0.65,
+      roughness: 0.08,
       metalness: 0.04,
       emissive: 0xc7f36b,
-      emissiveIntensity: 0.6,
+      emissiveIntensity: 0.70,
       clearcoat: 0.9,
-      clearcoatRoughness: 0.05,
+      clearcoatRoughness: 0.04,
     });
 
-    // Thin Polished Chrome Orbit Ring
+    // Thin Polished Chrome Ring Material
     const thinChromeMaterial = new THREE.MeshPhysicalMaterial({
       color: 0xffffff,
       metalness: 0.98,
-      roughness: 0.10,
+      roughness: 0.06,
       clearcoat: 1.0,
-      clearcoatRoughness: 0.04,
+      clearcoatRoughness: 0.03,
       reflectivity: 1.0,
-      envMapIntensity: 1.7,
+      envMapIntensity: 1.9,
     });
 
-    // 7. Custom Sculptural 3D PV Monogram Geometry with Wide Rounded Bevels
-    const extrudeSettings = {
-      steps: 1,
-      depth: 0.42, // thick sculptural 3D depth
+    const geometriesToDispose: THREE.BufferGeometry[] = [];
+
+    // 7. Continuous Super-Ellipse Cross-Section (C-Infinity Smooth Squircle)
+    // Eliminates all sharp creases and flat facets for seamless liquid mercury reflections
+    const a = 0.22; // half-width (total stroke face width = 0.44)
+    const b = 0.17; // half-depth (total stroke depth = 0.34)
+    const n = 3.2;  // super-ellipse power for smooth rounded profile
+    const crossSection = new THREE.Shape();
+    const segs = 48;
+    for (let i = 0; i <= segs; i++) {
+      const theta = (i / segs) * Math.PI * 2;
+      const cosT = Math.cos(theta);
+      const sinT = Math.sin(theta);
+      const px = a * Math.sign(cosT) * Math.pow(Math.abs(cosT), 2 / n);
+      const py = b * Math.sign(sinT) * Math.pow(Math.abs(sinT), 2 / n);
+      if (i === 0) crossSection.moveTo(px, py);
+      else crossSection.lineTo(px, py);
+    }
+    crossSection.closePath();
+
+    const extrudeOpts = {
+      steps: 48,
       bevelEnabled: true,
-      bevelThickness: 0.10, // generous rounded bevel
-      bevelSize: 0.08, // wide bevel that catches continuous studio specular lines
-      bevelOffset: 0,
-      bevelSegments: 10, // 10 segments for silky smooth curved bevel highlights
+      bevelSize: 0.03,
+      bevelThickness: 0.03,
+      bevelSegments: 6,
     };
 
-    // [P] Custom Sculptural Letterform with Architectural 45° Chamfer
-    const pShape = new THREE.Shape();
-    pShape.moveTo(-1.35, -1.15);
-    pShape.lineTo(-0.85, -1.15);
-    pShape.lineTo(-0.85, 0.05);
-    pShape.lineTo(-0.15, 0.05);
-    pShape.bezierCurveTo(0.45, 0.05, 0.45, 1.15, -0.15, 1.15);
-    pShape.lineTo(-0.95, 1.15); // chamfer start
-    pShape.lineTo(-1.35, 0.75); // 45° chamfer cut
-    pShape.closePath();
+    // Center offset to balance monogram
+    const OX = -0.16;
 
-    // [P] Inner Counter / Hole
-    const pHole = new THREE.Path();
-    pHole.moveTo(-0.85, 0.42);
-    pHole.lineTo(-0.15, 0.42);
-    pHole.bezierCurveTo(0.12, 0.42, 0.12, 0.78, -0.15, 0.78);
-    pHole.lineTo(-0.85, 0.78);
-    pHole.closePath();
-    pShape.holes.push(pHole);
+    // --- Letter [P] ---
+    // A. Slanted Stem
+    const pStemCurve = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(-0.85 + OX, -1.15, 0),
+      new THREE.Vector3(-0.70 + OX, 0.0, 0),
+      new THREE.Vector3(-0.55 + OX, 1.15, 0),
+    ]);
+    const rawPStem = new THREE.ExtrudeGeometry(crossSection, { ...extrudeOpts, extrudePath: pStemCurve });
+    const pStemGeo = mergeVertices(rawPStem, 1e-3);
+    pStemGeo.computeVertexNormals();
+    rawPStem.dispose();
+    geometriesToDispose.push(pStemGeo);
+    const pStemMesh = new THREE.Mesh(pStemGeo, liquidChromeMaterial);
+    pStemMesh.position.set(0, 0, -0.06);
+    sculptureGroup.add(pStemMesh);
 
-    const pGeo = new THREE.ExtrudeGeometry(pShape, extrudeSettings);
-    pGeo.center();
-    const pMesh = new THREE.Mesh(pGeo, chromeMaterial);
-    pMesh.position.set(-0.35, 0.05, 0);
-    sculptureGroup.add(pMesh);
+    // B. Smooth Slanted Loop of [P]
+    const pLoopCurve = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(-0.55 + OX, 1.15, 0),
+      new THREE.Vector3(0.0 + OX, 1.15, 0),
+      new THREE.Vector3(0.48 + OX, 0.65, 0),
+      new THREE.Vector3(0.0 + OX, 0.12, 0),
+      new THREE.Vector3(-0.68 + OX, 0.12, 0),
+    ]);
+    const rawPLoop = new THREE.ExtrudeGeometry(crossSection, { ...extrudeOpts, extrudePath: pLoopCurve });
+    const pLoopGeo = mergeVertices(rawPLoop, 1e-3);
+    pLoopGeo.computeVertexNormals();
+    rawPLoop.dispose();
+    geometriesToDispose.push(pLoopGeo);
+    const pLoopMesh = new THREE.Mesh(pLoopGeo, liquidChromeMaterial);
+    pLoopMesh.position.set(0, 0, -0.06);
+    sculptureGroup.add(pLoopMesh);
 
-    // [V] Custom Sculptural Letterform with Balanced Diagonal Proportions
-    const vShape = new THREE.Shape();
-    vShape.moveTo(-0.08, 1.15);
-    vShape.lineTo(0.35, 1.15);
-    vShape.lineTo(0.72, -0.65);
-    vShape.lineTo(1.15, 1.15);
-    vShape.lineTo(1.58, 1.15);
-    vShape.lineTo(0.95, -1.15);
-    vShape.lineTo(0.48, -1.15);
-    vShape.closePath();
-
-    const vGeo = new THREE.ExtrudeGeometry(vShape, extrudeSettings);
-    vGeo.center();
-    const vMesh = new THREE.Mesh(vGeo, chromeMaterial);
-    // Shifted forward in Z (0.12) so V gracefully interlocks in front of P without clipping
-    vMesh.position.set(0.40, -0.05, 0.12);
+    // --- Letter [V] ---
+    // Continuous 3D Swept Curve Nestled Tightly Against P with Italic Slant and Smooth Rounded Apex
+    const vCurve = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(-0.25 + OX, 1.15, 0),
+      new THREE.Vector3(-0.05 + OX, 0.35, 0),
+      new THREE.Vector3(0.25 + OX, -0.92, 0),
+      new THREE.Vector3(0.38 + OX, -1.15, 0),
+      new THREE.Vector3(0.52 + OX, -0.92, 0),
+      new THREE.Vector3(0.85 + OX, 0.35, 0),
+      new THREE.Vector3(1.18 + OX, 1.25, 0),
+    ]);
+    const rawVGeo = new THREE.ExtrudeGeometry(crossSection, { ...extrudeOpts, steps: 64, extrudePath: vCurve });
+    const vGeo = mergeVertices(rawVGeo, 1e-3);
+    vGeo.computeVertexNormals();
+    rawVGeo.dispose();
+    geometriesToDispose.push(vGeo);
+    const vMesh = new THREE.Mesh(vGeo, liquidChromeMaterial);
+    // V sits slightly in front of P in Z, overlapping P's loop with rich 3D parallax
+    vMesh.position.set(0, 0, 0.06);
     sculptureGroup.add(vMesh);
 
-    // Luminous Lime Foundation Layer (Exact 1:1 footprint directly behind the chrome letters — ZERO outline)
-    const pBackGeo = new THREE.ExtrudeGeometry(pShape, { depth: 0.10, bevelEnabled: false });
-    pBackGeo.center();
-    const pBackMesh = new THREE.Mesh(pBackGeo, limeFoundationMaterial);
-    pBackMesh.position.set(-0.35, 0.05, -0.26);
-    sculptureGroup.add(pBackMesh);
-
-    const vBackGeo = new THREE.ExtrudeGeometry(vShape, { depth: 0.10, bevelEnabled: false });
-    vBackGeo.center();
-    const vBackMesh = new THREE.Mesh(vBackGeo, limeFoundationMaterial);
-    vBackMesh.position.set(0.40, -0.05, -0.14);
-    sculptureGroup.add(vBackMesh);
-
-    // 8. Exactly Two Refined Orbital Elements
-    // 1. One delicate translucent electric-lime ring
-    const limeRingGeo = new THREE.TorusGeometry(1.72, 0.016, 20, 160);
+    // 8. Exactly Two Refined Orbital Rings Wrapped Closely
+    // 1. Delicate translucent electric-lime orbit ring
+    const limeRingGeo = new THREE.TorusGeometry(1.60, 0.020, 24, 160);
+    geometriesToDispose.push(limeRingGeo);
     const limeRingMesh = new THREE.Mesh(limeRingGeo, limeTranslucentMaterial);
     limeRingMesh.rotation.x = Math.PI / 2.3;
     limeRingMesh.rotation.y = -Math.PI / 5;
     sculptureGroup.add(limeRingMesh);
 
-    // 2. One thin polished chrome ring
-    const chromeRingGeo = new THREE.TorusGeometry(1.90, 0.012, 20, 160);
+    // 2. Thin polished chrome orbit ring
+    const chromeRingGeo = new THREE.TorusGeometry(1.78, 0.012, 24, 160);
+    geometriesToDispose.push(chromeRingGeo);
     const chromeRingMesh = new THREE.Mesh(chromeRingGeo, thinChromeMaterial);
     chromeRingMesh.rotation.x = Math.PI / 2.7;
     chromeRingMesh.rotation.y = Math.PI / 6;
     sculptureGroup.add(chromeRingMesh);
 
-    // 9. Orientation Constants (balanced 3/4 perspective)
-    const DEFAULT_ROT_X = 0.14;
-    const DEFAULT_ROT_Y = -0.26;
-    sculptureGroup.rotation.x = DEFAULT_ROT_X;
-    sculptureGroup.rotation.y = DEFAULT_ROT_Y;
-
-    // Mouse movement target coordinates
+    // 9. Orientation & Interaction
     let targetMouseX = 0;
     let targetMouseY = 0;
     let currentMouseX = 0;
@@ -231,7 +246,7 @@ export const Hero3DCanvas: React.FC = () => {
     };
     window.addEventListener('resize', handleResize);
 
-    // 10. Animation Loop
+    // 10. Smooth Floating Animation Loop
     let animId: number;
     const clock = new THREE.Clock();
 
@@ -240,7 +255,7 @@ export const Hero3DCanvas: React.FC = () => {
       const elapsed = clock.getElapsedTime();
 
       if (!prefersReducedMotion) {
-        // Floating breathing on Y axis (gentle 5-second sine wave)
+        // Floating breathing on Y axis
         sculptureGroup.position.y = Math.sin(elapsed * 0.8) * 0.07;
 
         // Easing mouse coordinates smoothly towards targets
@@ -251,7 +266,7 @@ export const Hero3DCanvas: React.FC = () => {
         const idleRotX = DEFAULT_ROT_X + Math.cos(elapsed * 0.4) * 0.02;
         const idleRotY = DEFAULT_ROT_Y + Math.sin(elapsed * 0.35) * 0.03;
 
-        // Clamped 8-12 degrees movement
+        // Clamped 8-12 degrees parallax
         const targetX = idleRotX - currentMouseY * 0.15;
         const targetY = idleRotY + currentMouseX * 0.16;
 
@@ -277,8 +292,8 @@ export const Hero3DCanvas: React.FC = () => {
       renderer.dispose();
       studioEnv.dispose();
 
-      [pGeo, vGeo, pBackGeo, vBackGeo, limeRingGeo, chromeRingGeo].forEach((g) => g.dispose());
-      [chromeMaterial, limeFoundationMaterial, limeTranslucentMaterial, thinChromeMaterial].forEach((m) => m.dispose());
+      geometriesToDispose.forEach((g) => g.dispose());
+      [liquidChromeMaterial, limeTranslucentMaterial, thinChromeMaterial].forEach((m) => m.dispose());
       if (renderer.domElement && container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
@@ -297,7 +312,7 @@ export const Hero3DCanvas: React.FC = () => {
       <div
         ref={mountRef}
         className="w-full h-full relative z-10 cursor-grab active:cursor-grabbing"
-        title="Interactive 3D Floating PV Monogram — Move pointer to explore"
+        title="Interactive 3D Chrome PV Monogram — Move pointer to explore"
       />
 
       {/* Ambient Electric Lime Glow Underlay */}
