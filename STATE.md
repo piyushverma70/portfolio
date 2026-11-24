@@ -1,7 +1,7 @@
 # Live State Tracker: Portfolio (Piyush Verma)
 
-* **Last Updated:** 2026-11-24 16:50:00
-* **Current Phase:** Interactive Features Added & Verified
+* **Last Updated:** 2026-11-24 16:55:00
+* **Current Phase:** Clean Warm Light Theme + In-Memory Font Lab
 * **Progress:** 100%
 * **Active Status:** READY
 * **Assigned Agent:** Antigravity
@@ -9,8 +9,8 @@
 ---
 
 ## 🎯 Current Work Item
-* **New Features Added:**
-  - **Tactile Lamp Pull-Cord:** Hanging lamp string in header top-right with elastic spring physics, synthesized mechanical switch click sound, and dark/light mode toggle.
-  - **Typography Lab / Font Switcher:** In-memory font playground allowing visitors to preview 6 distinct fonts across the whole website (resets automatically on page refresh).
-  - **Dark Mode Styling:** Velvety obsidian `#0F0F12` palette with glassmorphism cards, ambient Three.js fog adaptation, and readable typography.
+* **Completed:**
+  - Removed lamp pull-rope and dark mode; reverted back to original serene warm light theme (`#FAF8F5`).
+  - Retained Typography Lab / Font Switcher (temporary in-memory preview, resets automatically on refresh).
+  - Production build passing cleanly in 985ms.
 * **Dev Server:** Running live at `http://localhost:5173/`

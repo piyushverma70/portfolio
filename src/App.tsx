@@ -8,11 +8,13 @@ import { Process } from './components/Process';
 import { WhyMe } from './components/WhyMe';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
-import { LampPullCord } from './components/LampPullCord';
 import { FontSwitcher } from './components/FontSwitcher';
 
 export function App() {
   useEffect(() => {
+    // Ensure dark mode class is completely removed if previously toggled
+    document.documentElement.classList.remove('dark');
+
     const lenis = new Lenis({
       duration: 1.4,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -34,10 +36,7 @@ export function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#FAF8F5] text-[#18181B] selection:bg-[#EADCC9] selection:text-[#18181B] transition-colors duration-300">
-      {/* Hanging Lamp Pull Rope (Toggles Dark / Light Mode with ASMR spring physics & click sound) */}
-      <LampPullCord />
-
+    <div className="relative min-h-screen bg-[#FAF8F5] text-[#18181B] selection:bg-[#EADCC9] selection:text-[#18181B]">
       <Navbar />
       <main>
         <Hero />

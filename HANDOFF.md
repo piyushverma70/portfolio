@@ -3,14 +3,14 @@
 ## 📌 Handoff Metadata
 * **Last Active Agent:** Antigravity
 * **Next Active Agent:** OpenCode / Antigravity
-* **Timestamp:** 2026-11-24 16:50:00
+* **Timestamp:** 2026-11-24 16:55:00
 * **Status:** HANDOFF READY / COMPLETED
 
 ---
 
 ## 🎯 Executive Summary
 * **Public GitHub Repo:** [https://github.com/piyushverma70/portfolio](https://github.com/piyushverma70/portfolio)
-* **Lamp Pull-Cord Dark Mode:** Fixed top-right hanging cord with realistic drag/click spring physics and Web Audio click sound.
-* **In-Memory Font Switcher:** Client-side only font preview (Plus Jakarta, Playfair, JetBrains Mono, Space Grotesk, Inter, Outfit) that resets on refresh.
-* **Build Status:** Verified passing with 0 errors in 558ms.
+* **Aesthetic:** Original soothing warm light theme (`#FAF8F5`) restored (lamp cord & dark mode removed as requested).
+* **Font Switcher Feature:** Retained in bottom-left (`Aa Font`), applies dynamically in-memory and resets on page refresh.
+* **Build Status:** Verified passing with 0 errors in 985ms.
 * **Dev Server:** Active at `http://localhost:5173/`.
