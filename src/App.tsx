@@ -40,8 +40,8 @@ export function App() {
       <Navbar />
       <main>
         <Hero />
-        <Services />
         <Projects />
+        <Services />
         <Process />
         <WhyMe />
         <Contact />

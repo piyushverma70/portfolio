@@ -1,118 +1,102 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Search, Palette, Terminal, CheckCircle, Rocket, ArrowRight } from 'lucide-react';
+import { Search, PenTool, Code2, RefreshCw, Rocket } from 'lucide-react';
 
 export const Process: React.FC = () => {
-  const stages = [
+  const steps = [
     {
       num: "01",
-      title: "DISCOVER",
-      subtitle: "Scope & Architecture",
       icon: Search,
-      desc: "Deep analysis of your product goals, audience behavior, and technical constraints. We select the ideal stack and map out every requirement before writing code.",
+      title: "Discover",
+      desc: "Understand the problem, goals and real user needs.",
     },
     {
       num: "02",
-      title: "DESIGN",
-      subtitle: "Editorial Systems & Flow",
-      icon: Palette,
-      desc: "Art-directing the visual identity, typographic scales, spatial grids, and interactive prototypes. Every screen is refined until it feels bespoke and unmistakable.",
+      icon: PenTool,
+      title: "Design",
+      desc: "Turn insights into clear, thoughtful interfaces.",
     },
     {
       num: "03",
-      title: "BUILD",
-      subtitle: "Clean Type-Safe Engineering",
-      icon: Terminal,
-      desc: "Handcrafted React 19 and TypeScript with strict performance budgets. Fluid responsive layouts, modular state machines, and zero layout shift.",
+      icon: Code2,
+      title: "Build",
+      desc: "Develop with clean, scalable and modern code.",
     },
     {
       num: "04",
-      title: "REFINE",
-      subtitle: "Polish & Performance Audits",
-      icon: CheckCircle,
-      desc: "Rigorous cross-device testing, touch responsiveness checks, Core Web Vitals optimization, and 60-120fps motion profiling.",
+      icon: RefreshCw,
+      title: "Refine",
+      desc: "Test, improve and polish the experience.",
     },
     {
       num: "05",
-      title: "LAUNCH",
-      subtitle: "Edge Deployment & Handover",
       icon: Rocket,
-      desc: "Instant global deployment via Cloudflare Pages / Edge CDN networks, automated SSL, SEO metadata verification, and clean documentation.",
+      title: "Launch",
+      desc: "Ship, monitor and keep improving.",
     },
   ];
 
   return (
-    <section id="process" className="relative py-28 sm:py-36 px-4 sm:px-6 lg:px-10 border-t border-black/8 overflow-hidden">
+    <section id="process" className="relative py-12 sm:py-16 px-4 sm:px-6 lg:px-10 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        {/* Editorial Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 sm:mb-24 pb-8 border-b border-black/8 text-left">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-black/8 text-[11px] font-mono text-[#171717] mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#C7F36B]" />
-              <span>03 / THE METHOD</span>
+        {/* Dark Container Box */}
+        <div className="rounded-3xl bg-[#111113] text-[#F5F4F0] p-8 sm:p-12 lg:p-14 border border-white/10 text-left shadow-2xl relative overflow-hidden">
+          {/* Subtle Ambient Glow */}
+          <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#C7F36B]/5 rounded-full blur-[100px] pointer-events-none" />
+
+          {/* Section Header */}
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 sm:mb-16 pb-6 border-b border-white/10 relative z-10">
+            <div>
+              <div className="text-xs font-mono font-bold text-[#737373] tracking-widest mb-1">
+                03.
+              </div>
+              <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
+                MY PROCESS
+              </h2>
             </div>
-            <h2 className="font-display font-bold text-3xl sm:text-5xl lg:text-6xl text-[#171717] tracking-tight leading-[1.08]">
-              An Intentional, <br />
-              <span className="font-serif-editorial italic font-normal text-[#171717]">
-                Five-Stage Discipline.
-              </span>
-            </h2>
+
+            <p className="text-xs sm:text-sm text-[#999999] max-w-md font-normal">
+              A simple, focused process to turn ideas into real, impactful products.
+            </p>
           </div>
 
-          <p className="text-sm sm:text-base text-[#737373] max-w-md leading-relaxed">
-            DISCOVER → DESIGN → BUILD → REFINE → LAUNCH. Clear communication, predictable velocity, and zero ambiguity from start to finish.
-          </p>
-        </div>
+          {/* 5-Stage Stepper Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-6 relative z-10">
+            {steps.map((step, idx) => {
+              const Icon = step.icon;
 
-        {/* Editorial Timeline Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 text-left relative">
-          {stages.map((stage, idx) => {
-            const Icon = stage.icon;
-
-            return (
-              <motion.div
-                key={stage.num}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                className="group relative flex flex-col justify-between pt-6 border-t-2 border-black/10 hover:border-[#171717] transition-colors duration-300"
-              >
-                <div>
-                  {/* Stage Number & Indicator */}
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="font-mono text-xs font-bold text-[#737373] group-hover:text-[#171717] transition-colors">
-                      STAGE {stage.num}
-                    </span>
-                    <div className="w-8 h-8 rounded-lg bg-white border border-black/8 flex items-center justify-center text-[#171717] group-hover:bg-[#C7F36B] transition-colors">
-                      <Icon className="w-4 h-4" />
-                    </div>
+              return (
+                <motion.div
+                  key={step.title}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.5, delay: idx * 0.08 }}
+                  className="flex flex-col items-center sm:items-start text-center sm:text-left relative group"
+                >
+                  {/* Icon Box */}
+                  <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/15 flex items-center justify-center text-[#E5E5E0] group-hover:text-[#C7F36B] group-hover:border-[#C7F36B]/40 transition-all mb-4">
+                    <Icon className="w-5 h-5" />
                   </div>
 
-                  {/* Stage Title */}
-                  <h3 className="font-display font-bold text-xl sm:text-2xl text-[#171717] mb-1 tracking-tight">
-                    {stage.title}
+                  {/* Horizontal Line Node (Desktop) */}
+                  <div className="w-full flex items-center my-3 relative">
+                    <div className="w-full h-[1px] bg-white/15 group-hover:bg-[#C7F36B]/40 transition-colors" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#C7F36B] absolute left-0 ring-4 ring-[#111113] shadow-[0_0_8px_#C7F36B]" />
+                  </div>
+
+                  {/* Step Title & Description */}
+                  <h3 className="font-display font-bold text-base sm:text-lg text-white mb-1.5 mt-2 tracking-tight">
+                    {step.title}
                   </h3>
 
-                  <div className="text-[11px] font-mono text-[#999999] uppercase tracking-wider mb-4">
-                    {stage.subtitle}
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-xs sm:text-sm text-[#737373] leading-relaxed font-normal">
-                    {stage.desc}
+                  <p className="text-xs text-[#999999] leading-relaxed font-normal">
+                    {step.desc}
                   </p>
-                </div>
-
-                {/* Connecting Arrow for desktop (except last) */}
-                {idx < stages.length - 1 && (
-                  <div className="hidden lg:block absolute -right-3 top-5 text-[#999999]">
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </div>
-                )}
-              </motion.div>
-            );
-          })}
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
