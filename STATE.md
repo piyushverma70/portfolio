@@ -1,7 +1,7 @@
 # Live State Tracker: Portfolio (Piyush Verma)
 
-* **Last Updated:** 2026-11-24 16:05:00
-* **Current Phase:** Deployed to Public GitHub & Ready for Cloudflare Pages
+* **Last Updated:** 2026-11-24 16:50:00
+* **Current Phase:** Interactive Features Added & Verified
 * **Progress:** 100%
 * **Active Status:** READY
 * **Assigned Agent:** Antigravity
@@ -9,13 +9,8 @@
 ---
 
 ## 🎯 Current Work Item
-* **Completed Milestones:**
-  - Authenticated GitHub account `piyushverma70` (`piyushverma5534@gmail.com`).
-  - Created public repository [https://github.com/piyushverma70/portfolio](https://github.com/piyushverma70/portfolio).
-  - Web3Forms API Key configured: `1306ed5e-2fb7-41a0-99bf-58eed56de7d2` wired into `Contact.tsx` and `.env`.
-  - Node 20 environment configured via `.nvmrc` for Cloudflare Pages compatibility.
-  - Strict `.gitignore` protecting sensitive variables and credentials.
-  - High SEO implemented: Meta tags, OpenGraph, Twitter cards, Canonical link, Structured JSON-LD schema (Person, WebSite, ProfessionalService), `robots.txt`, `sitemap.xml`, custom `favicon.svg`, and `og-image.svg`.
-  - Full Mobile Responsiveness overhaul: Interactive mobile hamburger menu & navigation drawer in `Navbar.tsx`, touch padding & full-width mobile action buttons in `Hero.tsx`, responsive hCaptcha container in `Contact.tsx`, and responsive card padding across `Projects.tsx` and `Services.tsx`.
-  - Pushed all latest updates to `https://github.com/piyushverma70/portfolio.git` on branch `main`.
+* **New Features Added:**
+  - **Tactile Lamp Pull-Cord:** Hanging lamp string in header top-right with elastic spring physics, synthesized mechanical switch click sound, and dark/light mode toggle.
+  - **Typography Lab / Font Switcher:** In-memory font playground allowing visitors to preview 6 distinct fonts across the whole website (resets automatically on page refresh).
+  - **Dark Mode Styling:** Velvety obsidian `#0F0F12` palette with glassmorphism cards, ambient Three.js fog adaptation, and readable typography.
 * **Dev Server:** Running live at `http://localhost:5173/`

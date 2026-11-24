@@ -26,7 +26,20 @@
     overflow-x: hidden;
     selection-background-color: #E6DCBA;
     selection-color: #18181B;
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
+}
+
+/* Dynamic Font Switcher In-Memory Injection (Resets on Refresh) */
+:root[style*="--custom-site-font"] *,
+:root[style*="--custom-site-font"] body,
+:root[style*="--custom-site-font"] h1,
+:root[style*="--custom-site-font"] h2,
+:root[style*="--custom-site-font"] h3,
+:root[style*="--custom-site-font"] button,
+:root[style*="--custom-site-font"] span,
+:root[style*="--custom-site-font"] p {
+  font-family: var(--custom-site-font) !important;
 }
 
 /* ASMR Warm Light Theme Utilities */
@@ -36,6 +49,7 @@
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(0, 0, 0, 0.06);
   box-shadow: 0 16px 36px -12px rgba(45, 35, 25, 0.05), 0 2px 6px rgba(0, 0, 0, 0.02);
+  transition: all 0.35s ease;
 }
 
 .bg-comfort-card:hover {
@@ -56,11 +70,99 @@
   color: #3F3F46;
   border: 1px solid rgba(0, 0, 0, 0.05);
   white-space: nowrap;
+  transition: all 0.25s ease;
 }
 
 .pill-tag:hover {
   background: #EAE3D6;
   color: #18181B;
+}
+
+/* ============================================================ */
+/* DARK MODE (Triggered by Lamp Pull Cord)                      */
+/* ============================================================ */
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #0F0F12 !important;
+  color: #FAF8F5 !important;
+  selection-background-color: #3F3F46;
+  selection-color: #FAF8F5;
+}
+
+html.dark .bg-comfort-card {
+  background: rgba(24, 24, 28, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+}
+
+html.dark .bg-comfort-card:hover {
+  background: rgba(30, 30, 36, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.8), 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+html.dark .pill-tag {
+  background: #1C1C22 !important;
+  color: #E4E4E7 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark .pill-tag:hover {
+  background: #272730 !important;
+  color: #FFFFFF !important;
+}
+
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4 {
+  color: #FAF8F5 !important;
+}
+
+html.dark p {
+  color: #A1A1AA !important;
+}
+
+html.dark header nav {
+  background: rgba(18, 18, 22, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.dark header nav a {
+  color: #A1A1AA;
+}
+
+html.dark header nav a:hover {
+  color: #FAF8F5;
+}
+
+html.dark footer {
+  background: rgba(14, 14, 18, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark footer span {
+  color: #FAF8F5;
+}
+
+html.dark footer p {
+  color: #A1A1AA;
+}
+
+html.dark input,
+html.dark textarea {
+  background-color: #16161B !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #FAF8F5 !important;
+}
+
+html.dark input:focus,
+html.dark textarea:focus {
+  border-color: #C86A4B !important;
 }
 
 /* Custom Soft Scrollbar */
@@ -70,10 +172,19 @@
 ::-webkit-scrollbar-track {
   background: #FAF8F5;
 }
+html.dark ::-webkit-scrollbar-track {
+  background: #0F0F12;
+}
 ::-webkit-scrollbar-thumb {
   background: #D9D2C7;
   border-radius: 4px;
 }
+html.dark ::-webkit-scrollbar-thumb {
+  background: #2E2E36;
+}
 ::-webkit-scrollbar-thumb:hover {
   background: #C2BAAC;
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #3F3F4A;
 }

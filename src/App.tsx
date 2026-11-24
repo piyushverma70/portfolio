@@ -8,6 +8,8 @@ import { Process } from './components/Process';
 import { WhyMe } from './components/WhyMe';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { LampPullCord } from './components/LampPullCord';
+import { FontSwitcher } from './components/FontSwitcher';
 
 export function App() {
   useEffect(() => {
@@ -32,7 +34,10 @@ export function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#FAF8F5] text-[#18181B] selection:bg-[#EADCC9] selection:text-[#18181B]">
+    <div className="relative min-h-screen bg-[#FAF8F5] text-[#18181B] selection:bg-[#EADCC9] selection:text-[#18181B] transition-colors duration-300">
+      {/* Hanging Lamp Pull Rope (Toggles Dark / Light Mode with ASMR spring physics & click sound) */}
+      <LampPullCord />
+
       <Navbar />
       <main>
         <Hero />
@@ -43,6 +48,9 @@ export function App() {
         <Contact />
       </main>
       <Footer />
+
+      {/* Temporary In-Memory Typography / Font Switcher (Resets on Refresh) */}
+      <FontSwitcher />
     </div>
   );
 }

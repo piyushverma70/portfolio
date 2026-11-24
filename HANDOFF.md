@@ -3,17 +3,14 @@
 ## 📌 Handoff Metadata
 * **Last Active Agent:** Antigravity
 * **Next Active Agent:** OpenCode / Antigravity
-* **Timestamp:** 2026-11-24 16:05:30
+* **Timestamp:** 2026-11-24 16:50:00
 * **Status:** HANDOFF READY / COMPLETED
 
 ---
 
 ## 🎯 Executive Summary
 * **Public GitHub Repo:** [https://github.com/piyushverma70/portfolio](https://github.com/piyushverma70/portfolio)
-* **Author Identity:** Piyush Verma (`piyushverma70`, `piyushverma5534@gmail.com`)
-* **Web3Forms Key:** `1306ed5e-2fb7-41a0-99bf-58eed56de7d2` configured and verified.
-* **Sensitive Protection:** `.gitignore` excludes all `.env*`, `.pem`, `.key`, `credentials*`
-* **High SEO:** OpenGraph, Twitter cards, Canonical URL, JSON-LD Schema (`Person`, `WebSite`, `ProfessionalService`), `robots.txt`, `sitemap.xml`, and brand favicon.
-* **Mobile UX:** Animated mobile menu drawer, touch padding, centered hCaptcha, no horizontal scroll.
-* **Build Status:** Verified passing with 0 errors in 568ms.
+* **Lamp Pull-Cord Dark Mode:** Fixed top-right hanging cord with realistic drag/click spring physics and Web Audio click sound.
+* **In-Memory Font Switcher:** Client-side only font preview (Plus Jakarta, Playfair, JetBrains Mono, Space Grotesk, Inter, Outfit) that resets on refresh.
+* **Build Status:** Verified passing with 0 errors in 558ms.
 * **Dev Server:** Active at `http://localhost:5173/`.

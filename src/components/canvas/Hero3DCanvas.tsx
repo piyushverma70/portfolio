@@ -127,6 +127,11 @@ export const Hero3DCanvas: React.FC = () => {
       sphereGroup.rotation.y = elapsedTime * 0.06;
 
       // Gentle organic breathing/floating for each orb
+      const isDark = document.documentElement.classList.contains('dark');
+      if (scene.fog) {
+        scene.fog.color.setHex(isDark ? 0x0F0F12 : 0xFAF8F5);
+      }
+
       orbs.forEach((orb, i) => {
         const offset = i * 1.5;
         orb.mesh.position.y =
