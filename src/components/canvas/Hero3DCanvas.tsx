@@ -11,11 +11,14 @@ export const Hero3DCanvas: React.FC = () => {
     const width = container.clientWidth || 450;
     const height = container.clientHeight || 450;
 
+    // Check for prefers-reduced-motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // 1. Scene & Camera Setup
     const scene = new THREE.Scene();
 
-    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
-    camera.position.set(0, 0, 6.2);
+    const camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
+    camera.position.set(0, 0, 6.4);
 
     // 2. WebGL Renderer with High-Precision Tone Mapping
     const renderer = new THREE.WebGLRenderer({
@@ -29,41 +32,31 @@ export const Hero3DCanvas: React.FC = () => {
     renderer.toneMappingExposure = 1.25;
     container.appendChild(renderer.domElement);
 
-    // 3. Studio Environment & Reflections
-    // Create an artificial gradient studio reflection environment
-    const pmremGenerator = new THREE.PMREMGenerator(renderer);
-    pmremGenerator.compileEquirectangularShader();
-
-    // Studio Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.8);
+    // 3. Studio Lighting & Specular Highlights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.9);
     scene.add(ambientLight);
 
-    // Top-Right Main Key Light
+    // Key Light
     const keyLight = new THREE.DirectionalLight(0xffffff, 3.2);
     keyLight.position.set(5, 7, 5);
     scene.add(keyLight);
 
-    // Bottom-Left Soft Fill Light
+    // Fill Light
     const fillLight = new THREE.DirectionalLight(0xf5f4f0, 1.5);
     fillLight.position.set(-5, -4, 3);
     scene.add(fillLight);
 
-    // Electric Lime Neon Rim Light (casts green highlights on chrome edges)
-    const limeRimLight = new THREE.PointLight(0xc7f36b, 4.5, 12, 1.2);
+    // Electric Lime Neon Rim Light (gives glowing edge highlights on chrome)
+    const limeRimLight = new THREE.PointLight(0xc7f36b, 4.2, 12, 1.2);
     limeRimLight.position.set(2.8, 1.5, -2);
     scene.add(limeRimLight);
-
-    // Bottom Lime Accent Light
-    const limeBottomLight = new THREE.PointLight(0xc7f36b, 3.0, 8, 1.5);
-    limeBottomLight.position.set(0, -2.5, 1.5);
-    scene.add(limeBottomLight);
 
     // 4. Sculpture Group
     const sculptureGroup = new THREE.Group();
     scene.add(sculptureGroup);
 
     // 5. Materials
-    // Liquid Mirror Chrome
+    // Liquid Mirror Chrome Material
     const chromeMaterial = new THREE.MeshPhysicalMaterial({
       color: 0xf8f8f8,
       metalness: 0.98,
@@ -73,20 +66,13 @@ export const Hero3DCanvas: React.FC = () => {
       reflectivity: 1.0,
     });
 
-    // Electric Lime Accent Material
+    // Electric Lime Core Accent Material
     const limeMaterial = new THREE.MeshStandardMaterial({
       color: 0xc7f36b,
       emissive: 0xc7f36b,
       emissiveIntensity: 0.7,
       roughness: 0.25,
       metalness: 0.2,
-    });
-
-    // Dark Titanium Core Material
-    const titaniumMaterial = new THREE.MeshStandardMaterial({
-      color: 0x1f2022,
-      metalness: 0.9,
-      roughness: 0.3,
     });
 
     // 6. Extruded Geometric 3D PV Monogram
@@ -142,14 +128,13 @@ export const Hero3DCanvas: React.FC = () => {
     vMesh.position.set(0.48, -0.05, 0.08);
     sculptureGroup.add(vMesh);
 
-    // Backing Lime Accent Plate on P
+    // Backing Lime Accent Plates
     const pBackGeo = new THREE.ExtrudeGeometry(pShape, { depth: 0.08, bevelEnabled: false });
     pBackGeo.center();
     const pBackMesh = new THREE.Mesh(pBackGeo, limeMaterial);
     pBackMesh.position.set(-0.45, 0.05, -0.22);
     sculptureGroup.add(pBackMesh);
 
-    // Backing Lime Accent Plate on V
     const vBackGeo = new THREE.ExtrudeGeometry(vShape, { depth: 0.08, bevelEnabled: false });
     vBackGeo.center();
     const vBackMesh = new THREE.Mesh(vBackGeo, limeMaterial);
@@ -170,27 +155,32 @@ export const Hero3DCanvas: React.FC = () => {
     chromeRingMesh.rotation.y = Math.PI / 6;
     sculptureGroup.add(chromeRingMesh);
 
-    // Center the sculpture group and tilt to isometric aesthetic
-    sculptureGroup.rotation.x = 0.15;
-    sculptureGroup.rotation.y = -0.32;
+    // 8. Clamped & Refined Orientation Constants
+    // Default optimal angle keeping PV 100% legible
+    const DEFAULT_ROT_X = 0.12;
+    const DEFAULT_ROT_Y = -0.28;
+    sculptureGroup.rotation.x = DEFAULT_ROT_X;
+    sculptureGroup.rotation.y = DEFAULT_ROT_Y;
 
-    // 8. Mouse Tracking & Smooth Parallax Lerp
-    let mouseX = 0;
-    let mouseY = 0;
-    let targetRotY = -0.32;
-    let targetRotX = 0.15;
+    // Mouse movement target coordinates
+    let targetMouseX = 0;
+    let targetMouseY = 0;
+    let currentMouseX = 0;
+    let currentMouseY = 0;
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      mouseX = x * 1.4;
-      mouseY = y * 1.4;
+      // Normalize to [-0.5, 0.5]
+      const nx = Math.max(-0.5, Math.min(0.5, (e.clientX - rect.left) / rect.width - 0.5));
+      const ny = Math.max(-0.5, Math.min(0.5, (e.clientY - rect.top) / rect.height - 0.5));
+      targetMouseX = nx;
+      targetMouseY = ny;
     };
 
     const handleMouseLeave = () => {
-      mouseX = 0;
-      mouseY = 0;
+      // Smoothly return target to center
+      targetMouseX = 0;
+      targetMouseY = 0;
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
@@ -207,7 +197,7 @@ export const Hero3DCanvas: React.FC = () => {
     };
     window.addEventListener('resize', handleResize);
 
-    // 9. Animation Loop
+    // 9. Smooth Animation Loop with Clamped 8-12° Rotation & Spring Lerp
     let animId: number;
     const clock = new THREE.Clock();
 
@@ -215,22 +205,30 @@ export const Hero3DCanvas: React.FC = () => {
       animId = requestAnimationFrame(animate);
       const elapsed = clock.getElapsedTime();
 
-      // Smooth floating breathing
-      sculptureGroup.position.y = Math.sin(elapsed * 0.9) * 0.12;
+      if (!prefersReducedMotion) {
+        // Subtle floating breathing on Y axis (gentle 5-second sine wave)
+        sculptureGroup.position.y = Math.sin(elapsed * 0.8) * 0.08;
 
-      // Base idle yaw + mouse parallax easing
-      const idleY = -0.32 + Math.sin(elapsed * 0.35) * 0.12;
-      const idleX = 0.15 + Math.cos(elapsed * 0.45) * 0.06;
+        // Easing mouse coordinates smoothly towards targets
+        currentMouseX += (targetMouseX - currentMouseX) * 0.05;
+        currentMouseY += (targetMouseY - currentMouseY) * 0.05;
 
-      targetRotY = idleY + mouseX * 0.5;
-      targetRotX = idleX - mouseY * 0.4;
+        // Gentle idle breathing rotation (max ~2 degrees)
+        const idleRotX = DEFAULT_ROT_X + Math.cos(elapsed * 0.4) * 0.03;
+        const idleRotY = DEFAULT_ROT_Y + Math.sin(elapsed * 0.35) * 0.04;
 
-      sculptureGroup.rotation.y += (targetRotY - sculptureGroup.rotation.y) * 0.05;
-      sculptureGroup.rotation.x += (targetRotX - sculptureGroup.rotation.x) * 0.05;
+        // Mouse-driven rotation strictly clamped to 8-10 degrees (0.16 radians)
+        const targetX = idleRotX - currentMouseY * 0.16;
+        const targetY = idleRotY + currentMouseX * 0.18;
 
-      // Slowly rotate the orbital rings around the monogram
-      ringMesh.rotation.z = elapsed * 0.25;
-      chromeRingMesh.rotation.z = -elapsed * 0.18;
+        // Smooth spring interpolation to target orientation
+        sculptureGroup.rotation.x += (targetX - sculptureGroup.rotation.x) * 0.05;
+        sculptureGroup.rotation.y += (targetY - sculptureGroup.rotation.y) * 0.05;
+
+        // Independent, serene rotation of the orbital rings
+        ringMesh.rotation.z = elapsed * 0.18;
+        chromeRingMesh.rotation.z = -elapsed * 0.12;
+      }
 
       renderer.render(scene, camera);
     };
@@ -245,7 +243,7 @@ export const Hero3DCanvas: React.FC = () => {
 
       renderer.dispose();
       [pGeo, vGeo, pBackGeo, vBackGeo, ringGeo, chromeRingGeo].forEach((g) => g.dispose());
-      [chromeMaterial, limeMaterial, titaniumMaterial].forEach((m) => m.dispose());
+      [chromeMaterial, limeMaterial].forEach((m) => m.dispose());
       if (renderer.domElement && container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
@@ -264,7 +262,7 @@ export const Hero3DCanvas: React.FC = () => {
       <div
         ref={mountRef}
         className="w-full h-full relative z-10 cursor-grab active:cursor-grabbing"
-        title="Interactive 3D PV Monogram Sculpture — Move pointer to rotate"
+        title="Interactive 3D PV Monogram Sculpture — Move pointer to explore"
       />
 
       {/* Ambient Electric Lime Glow Underlay */}

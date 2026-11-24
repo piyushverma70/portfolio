@@ -1,115 +1,98 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Heart, ShieldCheck, Zap, Compass } from 'lucide-react';
 
 export const WhyMe: React.FC = () => {
   const principles = [
     {
-      icon: Heart,
+      num: "01",
       title: "Design Thinking",
-      desc: "Build with the user in mind.",
+      desc: "Build with the user in mind. Every layout decision starts with empathy, clarity, and intuitive flow.",
     },
     {
-      icon: ShieldCheck,
+      num: "02",
       title: "Clean & Scalable Code",
-      desc: "Maintainable and future ready.",
+      desc: "Maintainable, type-safe architecture designed for zero technical debt and effortless iteration.",
     },
     {
-      icon: Zap,
+      num: "03",
       title: "Performance Focused",
-      desc: "Fast, smooth and reliable experiences.",
+      desc: "Fast, smooth and reliable experiences with sub-second page loads and zero layout shifts.",
     },
     {
-      icon: Compass,
+      num: "04",
       title: "Continuous Experimentation",
-      desc: "Always learning and exploring new ideas.",
+      desc: "Always learning, exploring modern web standards, and bringing creative motion to life without sacrificing stability.",
     },
   ];
 
   return (
-    <section id="about" className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-10 overflow-hidden">
+    <section id="about" className="relative py-16 sm:py-24 px-4 sm:px-6 lg:px-10 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="text-left mb-10">
-          <div className="text-xs font-mono font-bold text-[#737373] tracking-widest mb-1">
+        <div className="text-left mb-10 sm:mb-12">
+          <div className="text-xs font-mono font-bold text-[#737373] tracking-widest mb-1.5">
             04.
           </div>
-          <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-[#171717] tracking-tight">
+          <h2 className="font-display font-extrabold text-2xl sm:text-4xl text-[#171717] tracking-tight">
             ABOUT ME
           </h2>
         </div>
 
-        {/* 3-Column Composition */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center text-left">
-          {/* Column 1: Clean Standalone Portrait with CSS Lime Accent Backing (Span 4) */}
+        {/* 2-Column Editorial Typography Layout (No Personal Photograph) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start text-left">
+          {/* Left Column: Manifesto & Personal Introduction (Span 6) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-4 flex items-center justify-center lg:justify-start"
+            className="lg:col-span-6 flex flex-col justify-between"
           >
-            <div className="relative w-48 sm:w-56 aspect-[4/5]">
-              {/* Pure CSS Electric Lime Backing Accent Card */}
-              <div className="absolute -top-2 -left-2 w-full h-full bg-[#C7F36B] rounded-3xl" />
+            <div>
+              <h3 className="font-display font-bold text-3xl sm:text-5xl lg:text-[52px] text-[#171717] tracking-tight leading-[1.06] mb-6">
+                Thoughtful Design.<br />
+                <span className="font-serif-editorial italic font-normal text-[#171717]">
+                  Intelligent Engineering.
+                </span>
+              </h3>
 
-              {/* Clean Standalone Portrait Photograph (No embedded text or UI) */}
-              <div className="relative w-full h-full rounded-3xl overflow-hidden bg-[#18181B] border border-black/10 shadow-lg">
-                <img
-                  src="/piyush-portrait.jpg"
-                  alt="Piyush Verma"
-                  className="w-full h-full object-cover grayscale contrast-110"
-                />
-              </div>
+              <p className="text-base sm:text-lg text-[#52525B] leading-relaxed font-normal mb-8">
+                I'm Piyush Verma, a developer and UI engineer who enjoys turning ideas into thoughtful digital experiences. I focus on clean design, solid engineering and the small details that make a product feel truly great to use.
+              </p>
+            </div>
+
+            <div className="pt-6 border-t border-black/8 text-xs font-mono text-[#737373] flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#C7F36B]" />
+              <span>INDEPENDENT DIGITAL CRAFTSMAN • NEW DELHI, INDIA</span>
             </div>
           </motion.div>
 
-          {/* Column 2: Headline & Personal Bio (Span 4) */}
+          {/* Right Column: Four Numbered Working Principles (Span 6) */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="lg:col-span-4 flex flex-col justify-center"
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="lg:col-span-6 divide-y divide-black/8 border-t border-b border-black/8"
           >
-            <h3 className="font-display font-bold text-2xl sm:text-3xl text-[#171717] tracking-tight leading-snug mb-4">
-              A developer who cares about the{' '}
-              <span className="inline-block px-2.5 py-0.5 rounded-lg bg-[#C7F36B] text-[#171717] font-extrabold">
-                details.
-              </span>
-            </h3>
+            {principles.map((p) => (
+              <div key={p.num} className="py-6 sm:py-7 group hover:bg-black/[0.015] transition-colors">
+                <div className="flex items-baseline gap-4 sm:gap-6">
+                  <span className="font-mono text-xs sm:text-sm font-bold text-[#999999] shrink-0">
+                    {p.num}
+                  </span>
 
-            <p className="text-xs sm:text-sm text-[#52525B] leading-relaxed font-normal">
-              I'm Piyush Verma, a developer and UI engineer who enjoys turning ideas into thoughtful digital experiences. I focus on clean design, solid engineering and the small details that make a product feel truly great to use.
-            </p>
-          </motion.div>
-
-          {/* Column 3: 4 Principles with Minimal Line Icons (Span 4) */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-4 space-y-5"
-          >
-            {principles.map((p) => {
-              const Icon = p.icon;
-              return (
-                <div key={p.title} className="flex items-start gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-white border border-black/8 flex items-center justify-center text-[#171717] shrink-0 mt-0.5 shadow-xs">
-                    <Icon className="w-4 h-4" />
-                  </div>
                   <div>
-                    <h4 className="font-display font-bold text-xs sm:text-sm text-[#171717] leading-tight mb-0.5">
+                    <h4 className="font-display font-bold text-base sm:text-lg text-[#171717] tracking-tight mb-1.5">
                       {p.title}
                     </h4>
-                    <p className="text-[11px] sm:text-xs text-[#737373] font-normal">
+                    <p className="text-xs sm:text-sm text-[#737373] leading-relaxed font-normal">
                       {p.desc}
                     </p>
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </motion.div>
         </div>
       </div>
