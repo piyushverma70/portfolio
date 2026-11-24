@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://piyushverma70.github.io/portfolio/sitemap.xml
