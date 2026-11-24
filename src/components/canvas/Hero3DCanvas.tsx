@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 
 export const Hero3DCanvas: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -17,10 +18,10 @@ export const Hero3DCanvas: React.FC = () => {
     // 1. Scene & Camera Setup
     const scene = new THREE.Scene();
 
-    const camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
+    const camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 100);
     camera.position.set(0, 0, 6.4);
 
-    // 2. WebGL Renderer with High-Precision Tone Mapping
+    // 2. High-Precision WebGL Renderer with ACES Tone Mapping
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: true,
@@ -29,61 +30,102 @@ export const Hero3DCanvas: React.FC = () => {
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.4;
     container.appendChild(renderer.domElement);
 
-    // 3. Studio Lighting & Specular Highlights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.9);
+    // 3. Realistic Studio HDR Environment Map via PMREMGenerator
+    // This provides physical studio reflections so chrome surfaces shine with bright silver highlights
+    const pmremGenerator = new THREE.PMREMGenerator(renderer);
+    pmremGenerator.compileEquirectangularShader();
+    const roomEnv = new RoomEnvironment();
+    const envTexture = pmremGenerator.fromScene(roomEnv, 0.01).texture;
+    scene.environment = envTexture;
+
+    // 4. Studio Softbox & Rim Lighting Setup
+    // Ambient fill to preserve luminosity
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
     scene.add(ambientLight);
 
-    // Key Light
-    const keyLight = new THREE.DirectionalLight(0xffffff, 3.2);
-    keyLight.position.set(5, 7, 5);
+    // Front-Facing Studio Softbox (bathes the front faces of P & V in luminous silver reflections)
+    const frontSoftbox = new THREE.DirectionalLight(0xffffff, 2.5);
+    frontSoftbox.position.set(1.2, 1.0, 5.5);
+    scene.add(frontSoftbox);
+
+    // Main Studio Key Light (bright front-top-right softbox)
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.6);
+    keyLight.position.set(4, 6, 4.5);
     scene.add(keyLight);
 
-    // Fill Light
-    const fillLight = new THREE.DirectionalLight(0xf5f4f0, 1.5);
-    fillLight.position.set(-5, -4, 3);
+    // Soft Fill Light (neutral cool-grey fill from left)
+    const fillLight = new THREE.DirectionalLight(0xf0f3f6, 1.6);
+    fillLight.position.set(-5, 1, 4);
     scene.add(fillLight);
 
-    // Electric Lime Neon Rim Light (gives glowing edge highlights on chrome)
-    const limeRimLight = new THREE.PointLight(0xc7f36b, 4.2, 12, 1.2);
-    limeRimLight.position.set(2.8, 1.5, -2);
-    scene.add(limeRimLight);
+    // Top Softbox Light (overhead highlight for letter tops)
+    const topLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    topLight.position.set(0, 7, 2);
+    scene.add(topLight);
 
-    // 4. Sculpture Group
+    // Electric Lime Accent Light (gives subtle luminous lime reflection on lower bevels)
+    const limeAccentLight = new THREE.PointLight(0xc7f36b, 3.2, 8, 1.1);
+    limeAccentLight.position.set(2.2, -1.0, 1.0);
+    scene.add(limeAccentLight);
+
+    // Crisp White Specular Gleam Light (highlights the curved contour of 'P')
+    const specularGleamLight = new THREE.PointLight(0xffffff, 2.2, 8, 1.0);
+    specularGleamLight.position.set(-2.5, 2.5, 3.0);
+    scene.add(specularGleamLight);
+
+    // 5. Sculpture Group
     const sculptureGroup = new THREE.Group();
     scene.add(sculptureGroup);
 
-    // 5. Materials
-    // Liquid Mirror Chrome Material
+    // 6. Materials
+    // Luxury Polished Silver Chrome Material
+    // Base color: #EBEDF0 (ultra-bright silver / platinum)
+    // High metalness + controlled roughness ensures bright, silver reflections (never black)
     const chromeMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xf8f8f8,
-      metalness: 0.98,
-      roughness: 0.08,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.06,
+      color: 0xebedf0,
+      metalness: 0.96,
+      roughness: 0.16,
+      clearcoat: 0.85,
+      clearcoatRoughness: 0.08,
       reflectivity: 1.0,
+      envMapIntensity: 1.6,
     });
 
-    // Electric Lime Core Accent Material
-    const limeMaterial = new THREE.MeshStandardMaterial({
+    // Subtle Translucent Lime Accent Material (for orbit ring)
+    const limeTranslucentMaterial = new THREE.MeshPhysicalMaterial({
+      color: 0xc7f36b,
+      transparent: true,
+      opacity: 0.8,
+      transmission: 0.5,
+      roughness: 0.12,
+      metalness: 0.08,
+      emissive: 0xc7f36b,
+      emissiveIntensity: 0.4,
+      clearcoat: 0.7,
+      clearcoatRoughness: 0.08,
+    });
+
+    // Electric Lime Backing Accent Material
+    const limeBackingMaterial = new THREE.MeshStandardMaterial({
       color: 0xc7f36b,
       emissive: 0xc7f36b,
-      emissiveIntensity: 0.7,
+      emissiveIntensity: 0.38,
       roughness: 0.25,
-      metalness: 0.2,
+      metalness: 0.15,
     });
 
-    // 6. Extruded Geometric 3D PV Monogram
+    // 7. Extruded Geometric 3D PV Monogram with Smooth Rounded Bevels
     const extrudeSettings = {
       steps: 1,
       depth: 0.32,
       bevelEnabled: true,
-      bevelThickness: 0.07,
-      bevelSize: 0.06,
+      bevelThickness: 0.08,
+      bevelSize: 0.07,
       bevelOffset: 0,
-      bevelSegments: 4,
+      bevelSegments: 8, // smooth curved bevel reflections
     };
 
     // [P] Shape
@@ -128,37 +170,40 @@ export const Hero3DCanvas: React.FC = () => {
     vMesh.position.set(0.48, -0.05, 0.08);
     sculptureGroup.add(vMesh);
 
-    // Backing Lime Accent Plates
+    // Backing Lime Accent Plates (creates a subtle luminous lime contour behind the silver letters)
     const pBackGeo = new THREE.ExtrudeGeometry(pShape, { depth: 0.08, bevelEnabled: false });
     pBackGeo.center();
-    const pBackMesh = new THREE.Mesh(pBackGeo, limeMaterial);
-    pBackMesh.position.set(-0.45, 0.05, -0.22);
+    const pBackMesh = new THREE.Mesh(pBackGeo, limeBackingMaterial);
+    pBackMesh.position.set(-0.45, 0.05, -0.20);
+    pBackMesh.scale.set(1.02, 1.02, 1);
     sculptureGroup.add(pBackMesh);
 
     const vBackGeo = new THREE.ExtrudeGeometry(vShape, { depth: 0.08, bevelEnabled: false });
     vBackGeo.center();
-    const vBackMesh = new THREE.Mesh(vBackGeo, limeMaterial);
-    vBackMesh.position.set(0.48, -0.05, -0.14);
+    const vBackMesh = new THREE.Mesh(vBackGeo, limeBackingMaterial);
+    vBackMesh.position.set(0.48, -0.05, -0.12);
+    vBackMesh.scale.set(1.02, 1.02, 1);
     sculptureGroup.add(vBackMesh);
 
-    // 7. Floating Orbiting Neon Lime Ring
-    const ringGeo = new THREE.TorusGeometry(1.55, 0.024, 16, 120);
-    const ringMesh = new THREE.Mesh(ringGeo, limeMaterial);
-    ringMesh.rotation.x = Math.PI / 2.3;
-    ringMesh.rotation.y = -Math.PI / 5;
-    sculptureGroup.add(ringMesh);
+    // 8. Dual Orbiting Rings: One Translucent Lime, One Thin Polished Chrome
+    // Translucent Lime Ring
+    const limeRingGeo = new THREE.TorusGeometry(1.58, 0.024, 20, 140);
+    const limeRingMesh = new THREE.Mesh(limeRingGeo, limeTranslucentMaterial);
+    limeRingMesh.rotation.x = Math.PI / 2.3;
+    limeRingMesh.rotation.y = -Math.PI / 5;
+    sculptureGroup.add(limeRingMesh);
 
-    // Secondary Chrome Ring Accent
-    const chromeRingGeo = new THREE.TorusGeometry(1.72, 0.016, 16, 120);
+    // Thin Polished Chrome Ring
+    const chromeRingGeo = new THREE.TorusGeometry(1.76, 0.016, 20, 140);
     const chromeRingMesh = new THREE.Mesh(chromeRingGeo, chromeMaterial);
     chromeRingMesh.rotation.x = Math.PI / 2.7;
     chromeRingMesh.rotation.y = Math.PI / 6;
     sculptureGroup.add(chromeRingMesh);
 
-    // 8. Clamped & Refined Orientation Constants
-    // Default optimal angle keeping PV 100% legible
-    const DEFAULT_ROT_X = 0.12;
-    const DEFAULT_ROT_Y = -0.28;
+    // 9. Clamped & Refined Orientation Constants
+    // Default optimal angle keeping PV 100% legible while displaying 3D depth
+    const DEFAULT_ROT_X = 0.14;
+    const DEFAULT_ROT_Y = -0.30;
     sculptureGroup.rotation.x = DEFAULT_ROT_X;
     sculptureGroup.rotation.y = DEFAULT_ROT_Y;
 
@@ -197,7 +242,7 @@ export const Hero3DCanvas: React.FC = () => {
     };
     window.addEventListener('resize', handleResize);
 
-    // 9. Smooth Animation Loop with Clamped 8-12° Rotation & Spring Lerp
+    // 10. Smooth Animation Loop with Clamped 8-12° Rotation & Spring Lerp
     let animId: number;
     const clock = new THREE.Clock();
 
@@ -206,18 +251,18 @@ export const Hero3DCanvas: React.FC = () => {
       const elapsed = clock.getElapsedTime();
 
       if (!prefersReducedMotion) {
-        // Subtle floating breathing on Y axis (gentle 5-second sine wave)
-        sculptureGroup.position.y = Math.sin(elapsed * 0.8) * 0.08;
+        // Subtle floating breathing on Y axis (gentle sine wave)
+        sculptureGroup.position.y = Math.sin(elapsed * 0.8) * 0.07;
 
         // Easing mouse coordinates smoothly towards targets
         currentMouseX += (targetMouseX - currentMouseX) * 0.05;
         currentMouseY += (targetMouseY - currentMouseY) * 0.05;
 
         // Gentle idle breathing rotation (max ~2 degrees)
-        const idleRotX = DEFAULT_ROT_X + Math.cos(elapsed * 0.4) * 0.03;
-        const idleRotY = DEFAULT_ROT_Y + Math.sin(elapsed * 0.35) * 0.04;
+        const idleRotX = DEFAULT_ROT_X + Math.cos(elapsed * 0.4) * 0.025;
+        const idleRotY = DEFAULT_ROT_Y + Math.sin(elapsed * 0.35) * 0.035;
 
-        // Mouse-driven rotation strictly clamped to 8-10 degrees (0.16 radians)
+        // Mouse-driven rotation strictly clamped to 8-12 degrees (0.16 radians)
         const targetX = idleRotX - currentMouseY * 0.16;
         const targetY = idleRotY + currentMouseX * 0.18;
 
@@ -226,7 +271,7 @@ export const Hero3DCanvas: React.FC = () => {
         sculptureGroup.rotation.y += (targetY - sculptureGroup.rotation.y) * 0.05;
 
         // Independent, serene rotation of the orbital rings
-        ringMesh.rotation.z = elapsed * 0.18;
+        limeRingMesh.rotation.z = elapsed * 0.18;
         chromeRingMesh.rotation.z = -elapsed * 0.12;
       }
 
@@ -242,8 +287,12 @@ export const Hero3DCanvas: React.FC = () => {
       window.removeEventListener('resize', handleResize);
 
       renderer.dispose();
-      [pGeo, vGeo, pBackGeo, vBackGeo, ringGeo, chromeRingGeo].forEach((g) => g.dispose());
-      [chromeMaterial, limeMaterial].forEach((m) => m.dispose());
+      pmremGenerator.dispose();
+      roomEnv.dispose();
+      envTexture.dispose();
+
+      [pGeo, vGeo, pBackGeo, vBackGeo, limeRingGeo, chromeRingGeo].forEach((g) => g.dispose());
+      [chromeMaterial, limeTranslucentMaterial, limeBackingMaterial].forEach((m) => m.dispose());
       if (renderer.domElement && container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
