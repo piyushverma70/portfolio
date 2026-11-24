@@ -29,34 +29,29 @@ export const Hero3DCanvas: React.FC = () => {
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.18;
     container.appendChild(renderer.domElement);
 
     // 3. High-Contrast Studio Environment Map
     const studioEnv = createStudioEnvironment(renderer);
     scene.environment = studioEnv.envTexture;
 
-    // 4. Studio Softbox & Controlled Rim Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+    // 4. Controlled Studio Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.55);
     scene.add(ambientLight);
 
-    // Front-Facing Studio Softbox (bathes the front beveled faces in bright silver reflections)
-    const frontSoftbox = new THREE.DirectionalLight(0xffffff, 2.2);
-    frontSoftbox.position.set(0.5, 1.5, 6.0);
-    scene.add(frontSoftbox);
-
     // Key Top-Right Studio Softbox
-    const keyLight = new THREE.DirectionalLight(0xffffff, 2.6);
-    keyLight.position.set(3.5, 5.5, 4.0);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
+    keyLight.position.set(3.5, 5.5, 4.5);
     scene.add(keyLight);
 
-    // Left Fill Softbox
-    const fillLight = new THREE.DirectionalLight(0xdde2e8, 1.4);
-    fillLight.position.set(-4.5, 1.5, 3.5);
+    // Left Fill Softbox (illuminates 'P' face)
+    const fillLight = new THREE.DirectionalLight(0xdde2e8, 1.5);
+    fillLight.position.set(-3.5, 2.5, 4.5);
     scene.add(fillLight);
 
     // Electric Lime Luminous Point Light (lower-right bevel bounce)
-    const limeRimLight = new THREE.PointLight(0xc7f36b, 3.5, 7, 1.2);
+    const limeRimLight = new THREE.PointLight(0xc7f36b, 3.2, 7, 1.2);
     limeRimLight.position.set(1.8, -1.2, 0.8);
     scene.add(limeRimLight);
 
@@ -65,50 +60,51 @@ export const Hero3DCanvas: React.FC = () => {
     scene.add(sculptureGroup);
 
     // 6. Materials
-    // Luxury Polished Silver Chrome Material
-    // Base color: #D8DDE2 (bright silver chrome with dark graphite reflections)
+    // Premium Polished Silver Chrome Material
+    // Base color: #E0E4E8 | Metalness: 0.96 | Roughness: 0.16 | Clearcoat: 1.0
+    // Captures both bright white softbox highlights and rich dark graphite contrast
     const chromeMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xd8dde2,
-      metalness: 0.94,
+      color: 0xe0e4e8,
+      metalness: 0.96,
       roughness: 0.16,
-      clearcoat: 0.95,
-      clearcoatRoughness: 0.06,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.05,
       reflectivity: 1.0,
-      envMapIntensity: 1.5,
+      envMapIntensity: 1.6,
     });
 
     // Electric Lime Foundation Accent (Glowing green base layer beneath the chrome)
     const limeFoundationMaterial = new THREE.MeshStandardMaterial({
       color: 0xc7f36b,
       emissive: 0xc7f36b,
-      emissiveIntensity: 0.9,
+      emissiveIntensity: 0.85,
       roughness: 0.18,
       metalness: 0.1,
     });
 
-    // Luminous Translucent Lime Ribbon Material (Diagonal orbit ring)
+    // Delicate Translucent Electric-Lime Ring Material
     const limeTranslucentMaterial = new THREE.MeshPhysicalMaterial({
       color: 0xc7f36b,
       transparent: true,
-      opacity: 0.88,
-      transmission: 0.45,
+      opacity: 0.85,
+      transmission: 0.5,
       roughness: 0.12,
       metalness: 0.05,
       emissive: 0xc7f36b,
-      emissiveIntensity: 0.7,
+      emissiveIntensity: 0.65,
       clearcoat: 0.85,
       clearcoatRoughness: 0.06,
     });
 
     // Thin Polished Chrome Ring Material
     const thinChromeMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xd8dde2,
+      color: 0xe0e4e8,
       metalness: 0.98,
       roughness: 0.12,
       clearcoat: 1.0,
       clearcoatRoughness: 0.05,
       reflectivity: 1.0,
-      envMapIntensity: 1.6,
+      envMapIntensity: 1.7,
     });
 
     // 7. Extruded Geometric 3D PV Monogram with Architectural Chamfer & Bevels
@@ -180,15 +176,15 @@ export const Hero3DCanvas: React.FC = () => {
     vBackMesh.scale.set(1.035, 1.035, 1);
     sculptureGroup.add(vBackMesh);
 
-    // 8. Dual Diagonal Orbiting Rings
-    // One subtle translucent lime-green ring
-    const limeRingGeo = new THREE.TorusGeometry(1.60, 0.024, 20, 140);
+    // 8. Exactly Two Balanced Orbital Elements
+    // 1. One delicate translucent electric-lime ring
+    const limeRingGeo = new THREE.TorusGeometry(1.60, 0.022, 20, 140);
     const limeRingMesh = new THREE.Mesh(limeRingGeo, limeTranslucentMaterial);
     limeRingMesh.rotation.x = Math.PI / 2.3;
     limeRingMesh.rotation.y = -Math.PI / 5;
     sculptureGroup.add(limeRingMesh);
 
-    // One thin metallic chrome orbital ring
+    // 2. One thin polished chrome ring
     const chromeRingGeo = new THREE.TorusGeometry(1.78, 0.015, 20, 140);
     const chromeRingMesh = new THREE.Mesh(chromeRingGeo, thinChromeMaterial);
     chromeRingMesh.rotation.x = Math.PI / 2.7;
@@ -196,8 +192,9 @@ export const Hero3DCanvas: React.FC = () => {
     sculptureGroup.add(chromeRingMesh);
 
     // 9. Orientation Constants
-    const DEFAULT_ROT_X = 0.14;
-    const DEFAULT_ROT_Y = -0.30;
+    // Optimal default angle where both P & V catch brilliant front studio softbox highlights
+    const DEFAULT_ROT_X = 0.10;
+    const DEFAULT_ROT_Y = -0.18;
     sculptureGroup.rotation.x = DEFAULT_ROT_X;
     sculptureGroup.rotation.y = DEFAULT_ROT_Y;
 

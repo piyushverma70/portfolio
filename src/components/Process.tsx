@@ -48,7 +48,7 @@ export const Process: React.FC = () => {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 sm:mb-16 pb-6 border-b border-white/10 relative z-10">
             <div>
               <div className="text-xs font-mono font-bold text-[#737373] tracking-widest mb-1">
-                03.
+                02.
               </div>
               <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
                 MY PROCESS

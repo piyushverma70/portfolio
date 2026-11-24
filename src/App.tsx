@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import Lenis from 'lenis';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { Services } from './components/Services';
 import { Projects } from './components/Projects';
 import { Process } from './components/Process';
 import { WhyMe } from './components/WhyMe';
@@ -41,7 +40,6 @@ export function App() {
       <main>
         <Hero />
         <Projects />
-        <Services />
         <Process />
         <WhyMe />
         <Contact />

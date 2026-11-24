@@ -31,7 +31,7 @@ export const WhyMe: React.FC = () => {
         {/* Section Header */}
         <div className="text-left mb-10 sm:mb-12">
           <div className="text-xs font-mono font-bold text-[#737373] tracking-widest mb-1.5">
-            04.
+            03.
           </div>
           <h2 className="font-display font-extrabold text-2xl sm:text-4xl text-[#171717] tracking-tight">
             ABOUT ME

@@ -2,26 +2,24 @@ import * as THREE from 'three';
 
 /**
  * Creates a high-contrast physical studio environment map with:
- * - Neutral silver studio ambience (prevents pitch-black chrome)
- * - Wide front softbox coverage (bright silver reflections across both P & V front faces)
- * - Top-right key softbox (sharp specular reflection line across top bevels)
- * - Controlled dark graphite flags on inner angles (authentic deep chrome contrast bands)
- * - Electric lime reflection card (subtle #C7F36B edge reflections)
+ * - Direct front and overhead softboxes illuminating both 'P' and 'V' front faces with silver chrome
+ * - Rear and side dark graphite flags providing deep contrast along side silhouettes
+ * - Electric lime reflection card providing subtle #C7F36B rim reflections
  */
 export const createStudioEnvironment = (renderer: THREE.WebGLRenderer) => {
   const pmremGenerator = new THREE.PMREMGenerator(renderer);
   pmremGenerator.compileEquirectangularShader();
 
   const envScene = new THREE.Scene();
-  // Neutral metallic studio ambient tone
-  envScene.background = new THREE.Color(0x424850);
+  // Deep graphite studio backdrop for high metallic contrast
+  envScene.background = new THREE.Color(0x101317);
 
-  // 1. Direct Front-Center Softbox (illuminates both P & V front faces with silver chrome)
+  // 1. Direct Front-Center Softbox (bright silver reflections across both P & V front faces)
   const softboxFront = new THREE.Mesh(
     new THREE.PlaneGeometry(16, 12),
     new THREE.MeshBasicMaterial({ color: 0xffffff })
   );
-  softboxFront.position.set(0, 2, 8);
+  softboxFront.position.set(0, 1.5, 7.5);
   softboxFront.lookAt(0, 0, 0);
   envScene.add(softboxFront);
 
@@ -30,7 +28,7 @@ export const createStudioEnvironment = (renderer: THREE.WebGLRenderer) => {
     new THREE.PlaneGeometry(12, 10),
     new THREE.MeshBasicMaterial({ color: 0xffffff })
   );
-  softboxFrontLeft.position.set(-4, 3, 7);
+  softboxFrontLeft.position.set(-4, 3, 6);
   softboxFrontLeft.lookAt(0, 0, 0);
   envScene.add(softboxFrontLeft);
 
@@ -39,41 +37,41 @@ export const createStudioEnvironment = (renderer: THREE.WebGLRenderer) => {
     new THREE.PlaneGeometry(12, 10),
     new THREE.MeshBasicMaterial({ color: 0xffffff })
   );
-  softboxKey.position.set(4, 7, 4);
+  softboxKey.position.set(4, 7, 4.5);
   softboxKey.lookAt(0, 0, 0);
   envScene.add(softboxKey);
 
   // 4. Right Rim Softbox Strip
   const softboxRight = new THREE.Mesh(
     new THREE.PlaneGeometry(3, 14),
-    new THREE.MeshBasicMaterial({ color: 0xf4f7fa })
+    new THREE.MeshBasicMaterial({ color: 0xf5f8fa })
   );
-  softboxRight.position.set(6, 1, 3);
+  softboxRight.position.set(6, 1.5, 3.5);
   softboxRight.lookAt(0, 0, 0);
   envScene.add(softboxRight);
 
-  // 5. Dark Graphite Flag (Side-Left & Rear: creates deep metallic contrast down side facets)
+  // 5. Dark Graphite Flag 1 (Positioned behind and to the left for side silhouette contrast)
   const darkFlag1 = new THREE.Mesh(
-    new THREE.PlaneGeometry(7, 14),
-    new THREE.MeshBasicMaterial({ color: 0x050709 })
+    new THREE.PlaneGeometry(8, 14),
+    new THREE.MeshBasicMaterial({ color: 0x020305 })
   );
-  darkFlag1.position.set(-6, -1, 1);
+  darkFlag1.position.set(-6, 0, -3);
   darkFlag1.lookAt(0, 0, 0);
   envScene.add(darkFlag1);
 
-  // 6. Dark Graphite Flag 2 (Bottom-Center: creates dark contrast on inner crevices)
+  // 6. Dark Graphite Flag 2 (Bottom-Center: creates rich dark reflection in crevices)
   const darkFlag2 = new THREE.Mesh(
-    new THREE.PlaneGeometry(8, 8),
-    new THREE.MeshBasicMaterial({ color: 0x030406 })
+    new THREE.PlaneGeometry(10, 6),
+    new THREE.MeshBasicMaterial({ color: 0x010203 })
   );
-  darkFlag2.position.set(-1, -6, 2);
+  darkFlag2.position.set(0, -6, 1);
   darkFlag2.lookAt(0, 0, 0);
   envScene.add(darkFlag2);
 
   // 7. Electric Lime Studio Bounce Card (Bottom-Right)
   // Injects subtle, authentic #C7F36B reflections into the lower bevels
   const limeBounceCard = new THREE.Mesh(
-    new THREE.PlaneGeometry(6, 6),
+    new THREE.PlaneGeometry(5, 5),
     new THREE.MeshBasicMaterial({ color: 0xc7f36b })
   );
   limeBounceCard.position.set(2.8, -3.2, 1.2);

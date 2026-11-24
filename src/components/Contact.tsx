@@ -86,7 +86,7 @@ export const Contact: React.FC = () => {
         <div className="rounded-3xl bg-[#111113] text-[#F5F4F0] p-8 sm:p-12 lg:p-14 border border-white/10 text-left shadow-2xl relative overflow-hidden">
           {/* Section Header Bar */}
           <div className="text-xs font-mono font-bold text-[#737373] tracking-widest mb-1">
-            05.
+            04.
           </div>
           <div className="text-xs font-mono font-bold text-white tracking-widest mb-10 pb-4 border-b border-white/10">
             LET'S CONNECT
