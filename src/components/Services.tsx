@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { Services3DCanvas } from './canvas/Services3DCanvas';
 
 export const Services: React.FC = () => {
   const serviceRows = [
@@ -81,121 +82,15 @@ export const Services: React.FC = () => {
             ))}
           </div>
 
-          {/* Right Column: Refined Metallic Geometric Architecture Visual (Span 5) */}
+          {/* Right Column: Interactive 3D Floating Metallic Slabs (Span 5) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.7 }}
-            className="lg:col-span-5 flex items-center justify-center relative p-6 sm:p-8"
+            className="lg:col-span-5 flex items-center justify-center relative"
           >
-            {/* Ambient Lime Neon Glow */}
-            <div className="absolute w-72 h-72 bg-[#C7F36B]/20 rounded-full blur-[70px] pointer-events-none" />
-
-            {/* Layered Metallic Geometry Card */}
-            <motion.div
-              animate={{
-                y: [-6, 6, -6],
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-              className="relative w-full max-w-[340px] aspect-square rounded-3xl bg-gradient-to-br from-white/95 to-[#FAF8F5]/80 border border-black/10 shadow-[0_20px_50px_-15px_rgba(23,23,23,0.08)] p-6 flex flex-col justify-between overflow-hidden"
-            >
-              {/* Top Bar with Micro-coordinates */}
-              <div className="flex items-center justify-between text-[10px] font-mono text-[#999999] pb-3 border-b border-black/5">
-                <span>SYSTEM // ATELIER</span>
-                <span className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C7F36B]" />
-                  60 FPS
-                </span>
-              </div>
-
-              {/* Central Metallic Geometric Forms (Pure SVG Construction) */}
-              <div className="relative flex items-center justify-center my-auto py-4">
-                <svg
-                  viewBox="0 0 240 180"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-full h-auto drop-shadow-md"
-                >
-                  <defs>
-                    <linearGradient id="chromeGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#ffffff" />
-                      <stop offset="35%" stopColor="#ebebeb" />
-                      <stop offset="55%" stopColor="#cfcfcf" />
-                      <stop offset="80%" stopColor="#f2f2f2" />
-                      <stop offset="100%" stopColor="#bababa" />
-                    </linearGradient>
-                    <linearGradient id="chromeGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="#ffffff" />
-                      <stop offset="40%" stopColor="#f0f0f0" />
-                      <stop offset="70%" stopColor="#cccccc" />
-                      <stop offset="100%" stopColor="#e8e8e8" />
-                    </linearGradient>
-                    <linearGradient id="limeGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#C7F36B" />
-                      <stop offset="100%" stopColor="#9DE036" />
-                    </linearGradient>
-                  </defs>
-
-                  {/* Backing Geometric Iso Plate */}
-                  <polygon
-                    points="120,20 210,65 120,110 30,65"
-                    fill="url(#chromeGrad2)"
-                    stroke="rgba(0,0,0,0.12)"
-                    strokeWidth="1.5"
-                  />
-                  <polygon
-                    points="30,65 120,110 120,122 30,77"
-                    fill="#9e9e9e"
-                  />
-                  <polygon
-                    points="120,110 210,65 210,77 120,122"
-                    fill="#757575"
-                  />
-
-                  {/* Upper Floating Metallic Iso Plate */}
-                  <polygon
-                    points="120,55 200,95 120,135 40,95"
-                    fill="url(#chromeGrad1)"
-                    stroke="rgba(255,255,255,0.9)"
-                    strokeWidth="1.5"
-                  />
-                  <polygon
-                    points="40,95 120,135 120,145 40,105"
-                    fill="#a8a8a8"
-                  />
-                  <polygon
-                    points="120,135 200,95 200,105 120,145"
-                    fill="#858585"
-                  />
-
-                  {/* Electric Lime Accent Core Dot */}
-                  <circle
-                    cx="120"
-                    cy="95"
-                    r="8"
-                    fill="url(#limeGlowGrad)"
-                    stroke="#ffffff"
-                    strokeWidth="2"
-                    className="animate-pulse"
-                  />
-
-                  {/* Fine Precision Crosshairs */}
-                  <line x1="120" y1="80" x2="120" y2="110" stroke="rgba(23,23,23,0.3)" strokeWidth="0.8" strokeDasharray="2 2" />
-                  <line x1="105" y1="95" x2="135" y2="95" stroke="rgba(23,23,23,0.3)" strokeWidth="0.8" strokeDasharray="2 2" />
-                </svg>
-              </div>
-
-              {/* Bottom Label */}
-              <div className="flex items-center justify-between text-[10px] font-mono text-[#737373] pt-3 border-t border-black/5">
-                <span>METALLIC GEOMETRY</span>
-                <span>PRECISION CRAFT</span>
-              </div>
-            </motion.div>
+            <Services3DCanvas />
           </motion.div>
         </div>
       </div>
