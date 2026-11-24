@@ -19,4 +19,5 @@
 - [x] Responsive touch layouts across Hero, Services, Projects, Contact, Footer
 - [x] Local git repository initialized with author `Piyush Verma <piyushverma5534@gmail.com>`
 - [x] Production build passes cleanly in 575ms
-- [ ] Connect `piyushverma70` GitHub account and push to public repo `portfolio`
+- [x] Connected `piyushverma70` GitHub account
+- [x] Created public GitHub repo `portfolio` and pushed to `main`
