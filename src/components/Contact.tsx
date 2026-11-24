@@ -93,7 +93,7 @@ export const Contact: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10">
-            {/* Left Column: Bold Headline & Dark Wave Graphic */}
+            {/* Left Column: Bold Headline & Pure Procedural SVG Silk Wave */}
             <div className="lg:col-span-6 flex flex-col justify-between h-full">
               <div>
                 <h2 className="font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.05] mb-4">
@@ -107,13 +107,40 @@ export const Contact: React.FC = () => {
                 </p>
               </div>
 
-              {/* Fluid Dark Wave Graphic */}
-              <div className="w-full max-w-xs mt-4 opacity-75">
-                <img
-                  src="/assets/contact-wave.png"
-                  alt="Liquid Wave Graphic"
-                  className="w-full h-auto object-contain pointer-events-none"
-                />
+              {/* Pure Procedural SVG Silk Wave (Zero Raster Image Fragment) */}
+              <div className="w-full max-w-xs mt-6 opacity-60">
+                <svg
+                  viewBox="0 0 320 80"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-full h-auto"
+                >
+                  <path
+                    d="M0 50 C 70 80, 150 10, 230 45 C 270 65, 300 35, 320 20"
+                    stroke="url(#limeGlow)"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M0 60 C 60 75, 140 25, 210 50 C 260 70, 290 40, 320 30"
+                    stroke="rgba(255, 255, 255, 0.25)"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M20 70 C 80 85, 160 35, 240 60 C 280 75, 305 50, 320 40"
+                    stroke="rgba(199, 243, 107, 0.2)"
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                  />
+                  <defs>
+                    <linearGradient id="limeGlow" x1="0" y1="0" x2="320" y2="0" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="rgba(255,255,255,0.1)" />
+                      <stop offset="0.5" stopColor="#C7F36B" />
+                      <stop offset="1" stopColor="rgba(255,255,255,0.05)" />
+                    </linearGradient>
+                  </defs>
+                </svg>
               </div>
             </div>
 

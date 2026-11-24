@@ -41,7 +41,7 @@ export const WhyMe: React.FC = () => {
 
         {/* 3-Column Composition */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center text-left">
-          {/* Column 1: Portrait with Electric Lime Accent (Span 4) */}
+          {/* Column 1: Clean Standalone Portrait with CSS Lime Accent Backing (Span 4) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -49,14 +49,18 @@ export const WhyMe: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="lg:col-span-4 flex items-center justify-center lg:justify-start"
           >
-            <div className="relative w-48 sm:w-56 aspect-[4/5] rounded-3xl overflow-hidden shadow-lg border border-black/8 group">
-              {/* Lime accent backing box */}
-              <div className="absolute top-2 left-2 w-full h-full bg-[#C7F36B] rounded-3xl -z-10" />
-              <img
-                src="/assets/about-portrait.png"
-                alt="Piyush Verma Portrait"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
+            <div className="relative w-48 sm:w-56 aspect-[4/5]">
+              {/* Pure CSS Electric Lime Backing Accent Card */}
+              <div className="absolute -top-2 -left-2 w-full h-full bg-[#C7F36B] rounded-3xl" />
+
+              {/* Clean Standalone Portrait Photograph (No embedded text or UI) */}
+              <div className="relative w-full h-full rounded-3xl overflow-hidden bg-[#18181B] border border-black/10 shadow-lg">
+                <img
+                  src="/piyush-portrait.jpg"
+                  alt="Piyush Verma"
+                  className="w-full h-full object-cover grayscale contrast-110"
+                />
+              </div>
             </div>
           </motion.div>
 
